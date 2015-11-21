@@ -1,0 +1,5 @@
+@mixin css3($attr, $value) {
+    @each $prefixer in $prefixers {
+        #{$prefixer}#{$attr}: $value;
+    }
+}

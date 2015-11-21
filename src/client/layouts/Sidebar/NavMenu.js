@@ -13,8 +13,10 @@ class NavMenu extends Component {
         return (
             <ul className="nav-menu">
                 {config.map((menu, i) => {
+                    let flag = (navMenuKey === i);
+
                     return (
-                        <li key={i} className={navMenuKey === i ? 'active' : ''}>
+                        <li key={i} className={flag ? 'active' : ''}>
                             {menu.path && 
                                 <Link to={menu.path} 
                                     onClick={() => {
@@ -30,7 +32,7 @@ class NavMenu extends Component {
                                 <a href="javascript:;" onClick={() => isChangeNavMenuKey(i)}>
                                     <i className={'iconfont ' + menu.icon}></i>
                                     {menu.text}
-                                    <i className="iconfont icon-angleleft"></i>
+                                    <i className={'iconfont icon-angle' + (flag ? 'down' : 'left')}></i>
                                 </a>
                             }
 

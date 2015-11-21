@@ -27,15 +27,17 @@
     }
 
     .nav-menu {
+        overflow: hidden;
+        
         > li {
             &:hover > a,
             &.active > a {
                 background-color: $sidebar-nav-menu-bg-active;
             }
 
-            &.active .sub-menu {
+            /* &.active .sub-menu {
                 display: block;
-            }
+            } */
         }
 
         ul {
@@ -45,7 +47,9 @@
     }
 
     .sub-menu {
-        display: none;
+        // display: none;
+        overflow: hidden;
+        @include css3(transition, height .3s ease-out);
 
         li:hover > a,
         li.active > a {

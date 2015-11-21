@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isChangeCurrentPath, isChangeNavMenuKey } from '../../actions/';
@@ -10,13 +11,19 @@ class SubMenu extends Component {
         super(props);
 
         this.displayKey = -1;
+        this.height = 0;
     }
 
     componentDidMount() { // 首次打开网页时，如何url是子菜单项，让其展开
         let { isChangeNavMenuKey } = this.props;
+        let dom = findDOMNode(this.refs.subMenu);
+
+        this.height = dom.offsetHeight;
 
         if (this.displayKey >= 0) {
             isChangeNavMenuKey(this.displayKey);
+        } else {
+            dom.style.height = 0;
         }
     }
 
@@ -40,10 +47,20 @@ class SubMenu extends Component {
     }
 
     render() {
+        let { navKey, navMenuKey } = this.props;
         let html = this.renderHtml();
+        let style = {};
+
+        if (this.height > 0) {
+            if (navKey === navMenuKey) {
+                style = {height: this.height, overflow: 'visible'};
+            } else {
+                style = {height: 0, overflow: 'hidden'};
+            }
+        } 
 
         return (
-            <ul className="sub-menu">
+            <ul className="sub-menu" ref="subMenu" style={style}>
                 {html}
             </ul>
         );

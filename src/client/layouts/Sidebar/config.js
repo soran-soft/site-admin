@@ -6,7 +6,7 @@ export default
         path: '/'
     }, {
         text: 'Line',
-        icon: 'icon-home',
+        icon: 'icon-chartline',
         items: [
             {
                 text: '111',
@@ -23,7 +23,7 @@ export default
         ]
     }, {
         text: 'Bar',
-        icon: 'icon-home',
+        icon: 'icon-chartbar',
         items: [
             {
                 text: '111',
@@ -40,7 +40,7 @@ export default
         ]
     }, {
         text: 'Pie',
-        icon: 'icon-home',
+        icon: 'icon-database',
         items: [
             {
                 text: '111',
