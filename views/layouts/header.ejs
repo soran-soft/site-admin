@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%- title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if (NODE_ENV == 'development') { %>
+      <link rel="stylesheet" href="//127.0.0.1:3001/static/css/style.css">
+    <% } else { %>
+      <link rel="stylesheet" href="/css/style.css">
+    <% } %>
+  </head>
+  <body>

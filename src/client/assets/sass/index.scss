@@ -1,0 +1,12 @@
+@import './vars';
+@import './mixin';
+@import './reset';
+@import './base';
+@import './type';
+@import './iconfont';
+
+@import '../../layouts/app';
+
+@import '../../layouts/Header/header';
+@import '../../layouts/Sidebar/sidebar';
+@import '../../layouts/Footer/footer';

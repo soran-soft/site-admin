@@ -1,0 +1,34 @@
+/* reset */
+body, div,
+h1, h2, h3, h4, h5, h6, p,
+a, b, i, em, span, small, strong,
+img,
+ol, ul, li,
+form, label, table,
+article, aside, footer, header, hgroup, nav, section {
+    margin: 0;
+    padding: 0;
+}
+img {
+    border: none;
+}
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+article,
+aside,
+footer,
+header,
+hgroup,
+nav,
+section {
+    display: block;
+}
+ul {
+    list-style: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}

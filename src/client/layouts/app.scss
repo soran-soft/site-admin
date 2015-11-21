@@ -1,0 +1,9 @@
+.admin-main {
+    position: relative;
+    overflow: hidden;
+}
+.admin-content {
+    background-color: $content-bg;
+    margin: $header-height 0 0 $sidebar-width;
+    min-height: $content-min-height;
+}
