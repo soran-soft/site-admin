@@ -34,7 +34,7 @@ class NavMenu extends Component {
                                 </a>
                             }
 
-                            {menu.items && <SubMenu items={menu.items} />}
+                            {menu.items && <SubMenu navKey={i} items={menu.items} />}
                         </li>
                     );
                 })}
