@@ -1,9 +1,20 @@
 /* common */
 $prefixers: -webkit-, -moz-, -ms-, -o-, null;
 
+/* total */
+$total-min-width: 8rem;
+
+/* type */
+$select-menu-color: #91979e;
+$select-menu-line-height: .4rem;
+$select-menu-bg: #333c47;
+$select-menu-bg-active: #24272d;
+
 /* header */
 $header-height: .42rem;
 $header-bg: #333c47;
+$header-title-color: #e02222;
+$header-padding-lr: .36rem;
 
 /* sidebar */
 $sidebar-width: 2.25rem;

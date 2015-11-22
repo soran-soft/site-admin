@@ -1,9 +1,12 @@
 .admin-main {
     position: relative;
     overflow: hidden;
+    min-width: $total-min-width;
 }
 .admin-content {
     background-color: $content-bg;
     margin: $header-height 0 0 $sidebar-width;
     min-height: $content-min-height;
+    padding: .1rem .2rem;
+    color: #333;
 }

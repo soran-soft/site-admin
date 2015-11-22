@@ -1,10 +1,23 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 class Header extends Component {
     render() {
         return (
             <header className="admin-header">
-
+                <h1 className="header-title">DataCenter</h1>
+                <ul className="header-user select-menu">
+                    <a href="javascript:;"><i className="iconfont icon-user"></i>username<i className="iconfont icon-angledown last"></i></a>
+                    <li>
+                        <Link to="">xxx</Link>
+                    </li>
+                    <li>
+                        <Link to="">xxx</Link>
+                    </li>
+                    <li>
+                        <Link to="">xxx</Link>
+                    </li>
+                </ul>
             </header>
         );
     }

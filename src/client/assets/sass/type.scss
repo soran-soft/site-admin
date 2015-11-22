@@ -7,3 +7,41 @@
 .clearfix:after {
     clear: both;
 }
+
+/* 下拉菜单 */
+.select-menu {    
+    /* height: $select-menu-line-height;
+    overflow: hidden; */
+
+    li {
+        display: none;
+    }
+
+    &:hover li,
+    &.active li {
+        display: block;
+    }
+
+    a {
+        display: block;
+        background-color: $select-menu-bg;
+        color: $select-menu-color;
+        line-height: $select-menu-line-height;
+        padding-left: .2rem;
+
+        &:hover,
+        &.active {
+            text-decoration: none;
+            background-color: $select-menu-bg-active;
+        }
+
+        i {
+            padding-right: .1rem;
+            font-size: .16rem;
+            
+            &.last {
+                float: right;
+            }
+        }
+    }
+}

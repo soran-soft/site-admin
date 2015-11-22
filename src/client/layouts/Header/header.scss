@@ -5,4 +5,18 @@
     position: fixed;
     top: 0;
     z-index: 999;
+
+    .header-title {
+        display: inline-block;
+        font-size: .18rem;
+        color: $header-title-color;
+        line-height: $header-height;
+        padding: 0 $header-padding-lr;
+    }
+
+    .header-user {
+        float: right;
+        margin-right: $header-padding-lr;
+        width: 1.6rem;
+    }
 }
