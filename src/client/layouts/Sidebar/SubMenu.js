@@ -53,9 +53,9 @@ class SubMenu extends Component {
 
         if (this.height > 0) {
             if (navKey === navMenuKey) {
-                style = {height: this.height, overflow: 'visible'};
+                style = {height: this.height};
             } else {
-                style = {height: 0, overflow: 'hidden'};
+                style = {height: 0};
             }
         } 
 
