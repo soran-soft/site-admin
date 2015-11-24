@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import customInfo from '../config/customInfo';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -38,10 +39,27 @@ export default {
             //         return response.json();
             //     });
 
-            const initialState = { 
-                currentPath: location.pathname,
-                navMenuKey: 0
+            let pathname = location.pathname,
+                initData;
+
+            customInfo.some(function (v) { // All params: value, index, array
+                let flag = (v.path === pathname);
+
+                if (flag) {
+                    initData = v;
+                }
+
+                return flag;
+            });
+
+            let initialState = {
+                pathInfo: {
+                    path: initData.path,
+                    text: initData.text
+                },
+                navKey: initData.navKey
             };
+
             const store = configureStore(initialState);
 
             const content = renderToString(

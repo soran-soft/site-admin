@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isChangeCurrentPath, isChangeNavMenuKey } from '../../actions/';
+import { changePath, changeNavKey } from '../../actions/';
 import { Link } from 'react-router';
 import NavMenu from './NavMenu';
 
@@ -10,49 +10,26 @@ class SubMenu extends Component {
     constructor(props) {
         super(props);
 
-        this.displayKey = -1;
         this.height = 0;
     }
 
     componentDidMount() { // 首次打开网页时，如何url是子菜单项，让其展开
-        let { isChangeNavMenuKey } = this.props;
-        let dom = findDOMNode(this.refs.subMenu);
+        let { navIndex, navKey } = this.props,
+            dom = findDOMNode(this.refs.subMenu);
 
         this.height = dom.offsetHeight;
 
-        if (this.displayKey >= 0) {
-            isChangeNavMenuKey(this.displayKey);
-        } else {
+        if (navKey !== navIndex) {
             dom.style.height = 0;
         }
     }
 
-    renderHtml() {
-        let { items, currentPath, isChangeCurrentPath, navKey } = this.props;
-        
-        return items.map((sub, i) => {
-            let isActive = (sub.path === currentPath);
-
-            if (isActive) {
-                this.displayKey = navKey;
-            }
-
-            return (
-                <li key={i} className={isActive ? 'active' : ''}>
-                    <Link to={sub.path}
-                        onClick={() => isChangeCurrentPath(sub.path)}>{sub.text}</Link>
-                </li>
-            );
-        });
-    }
-
     render() {
-        let { navKey, navMenuKey } = this.props;
-        let html = this.renderHtml();
-        let style = {};
+        let { items, pathInfo, navIndex, navKey, changePath } = this.props,
+            style = {};
 
         if (this.height > 0) {
-            if (navKey === navMenuKey) {
+            if (navKey === navIndex) {
                 style = {height: this.height};
             } else {
                 style = {height: 0};
@@ -61,7 +38,14 @@ class SubMenu extends Component {
 
         return (
             <ul className="sub-menu" ref="subMenu" style={style}>
-                {html}
+                {items.map((sub, i) => {
+                    return (
+                        <li key={i} className={(sub.path === pathInfo.path) ? 'active' : ''}>
+                            <Link to={sub.path}
+                                onClick={() => changePath(sub.path, sub.text)}>{sub.text}</Link>
+                        </li>
+                    );
+                })}
             </ul>
         );
     }
@@ -69,16 +53,16 @@ class SubMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        currentPath: state.currentPath,
-        navMenuKey: state.navMenuKey
+        pathInfo: state.pathInfo,
+        navKey: state.navKey
     };
 }
 
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        isChangeCurrentPath,
-        isChangeNavMenuKey
+        changePath,
+        changeNavKey
     }, dispatch);
 }
 

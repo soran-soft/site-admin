@@ -9,15 +9,15 @@ export default
         icon: 'icon-chartline',
         items: [
             {
-                text: '111',
+                text: 'line-1',
                 path: '/line/1'
             }, 
             {
-                text: '222',
+                text: 'line-2',
                 path: '/line/2'
             }, 
             {
-                text: '333',
+                text: 'line-3',
                 path: '/line/3'
             }
         ]
@@ -26,15 +26,15 @@ export default
         icon: 'icon-chartbar',
         items: [
             {
-                text: '111',
+                text: 'bar-1',
                 path: '/bar/1'
             }, 
             {
-                text: '222',
+                text: 'bar-2',
                 path: '/bar/2'
             }, 
             {
-                text: '333',
+                text: 'bar-3',
                 path: '/bar/3'
             }
         ]
@@ -43,15 +43,15 @@ export default
         icon: 'icon-database',
         items: [
             {
-                text: '111',
+                text: 'pie-1',
                 path: '/pie/1'
             }, 
             {
-                text: '222',
+                text: 'pie-2',
                 path: '/pie/2'
             }, 
             {
-                text: '333',
+                text: 'pie-3',
                 path: '/pie/3'
             }
         ]

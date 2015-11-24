@@ -1,17 +1,23 @@
-import { CHANGE_CURRENT_PATH, CHANGE_NAV_MENU_KEY } from '../constants/ActionTypes';
+import { CHANGE_CURRENT_PATH, CHANGE_NAV_KEY } from '../constants/ActionTypes';
 
-export function currentPath(state = '/', action) {
+export function pathInfo(state = {
+    path: '/',
+    text: 'Dashboard'
+}, action) {
     switch (action.type) {
         case CHANGE_CURRENT_PATH:
-            return action.path;
+            return {
+                path: action.path,
+                text: action.text
+            };
         default:
             return state;
     }
 }
 
-export function navMenuKey(state = 0, action) {
+export function navKey(state = 0, action) {
     switch (action.type) {
-        case CHANGE_NAV_MENU_KEY:
+        case CHANGE_NAV_KEY:
             return action.key;
         default:
             return state;

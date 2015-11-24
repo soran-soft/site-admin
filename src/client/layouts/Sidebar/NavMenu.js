@@ -1,27 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isChangeCurrentPath, isChangeNavMenuKey } from '../../actions/';
+import { changePath, changeNavKey } from '../../actions/';
 import { Link } from 'react-router';
 import SubMenu from './SubMenu';
 import config from './config';
 
 class NavMenu extends Component {
     render() {
-        let { currentPath, navMenuKey, isChangeCurrentPath, isChangeNavMenuKey } = this.props;
+        let { currentPath, navKey, changePath, changeNavKey } = this.props;
 
         return (
             <ul className="nav-menu">
                 {config.map((menu, i) => {
-                    let flag = (navMenuKey === i);
+                    let flag = (navKey === i);
 
                     return (
                         <li key={i} className={flag ? 'active' : ''}>
                             {menu.path && 
                                 <Link to={menu.path} 
                                     onClick={() => {
-                                        isChangeNavMenuKey(i);
-                                        isChangeCurrentPath(menu.path);
+                                        changeNavKey(i);
+                                        changePath(menu.path, menu.text);
                                     }}>
                                     <i className={'iconfont ' + menu.icon}></i>
                                     {menu.text}
@@ -29,14 +29,14 @@ class NavMenu extends Component {
                             }
                             
                             {!menu.path && 
-                                <a href="javascript:;" onClick={() => isChangeNavMenuKey(i)}>
+                                <a href="javascript:;" onClick={() => changeNavKey(i)}>
                                     <i className={'iconfont ' + menu.icon}></i>
                                     {menu.text}
                                     <i className={'iconfont icon-angle' + (flag ? 'down' : 'left')}></i>
                                 </a>
                             }
 
-                            {menu.items && <SubMenu navKey={i} items={menu.items} />}
+                            {menu.items && <SubMenu navIndex={i} items={menu.items} />}
                         </li>
                     );
                 })}
@@ -47,16 +47,16 @@ class NavMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        currentPath: state.currentPath,
-        navMenuKey: state.navMenuKey
+        currentPath: state.pathInfo.path,
+        navKey: state.navKey
     };
 }
 
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        isChangeCurrentPath,
-        isChangeNavMenuKey
+        changePath,
+        changeNavKey
     }, dispatch);
 }
 

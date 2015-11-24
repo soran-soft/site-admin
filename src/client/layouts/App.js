@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isChangeCurrentPath } from '../actions/';
+import { changePath } from '../actions/';
 import Header from './Header/';
 import Sidebar from './Sidebar/';
+import ContentHeader from './ContentHeader/';
 import Footer from './Footer/';
 
 class App extends Component {
@@ -19,6 +20,8 @@ class App extends Component {
                 <Header />
                 <Sidebar />
                 <section className="admin-content">
+                    <ContentHeader />
+
                     {this.props.children || ''}
                 </section>
                 <Footer />
@@ -33,7 +36,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        isChangeCurrentPath
+        changePath
     }, dispatch);
 }
 

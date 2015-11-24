@@ -1,31 +1,32 @@
-import { CHANGE_CURRENT_PATH, CHANGE_NAV_MENU_KEY } from '../constants/ActionTypes';
+import { CHANGE_CURRENT_PATH, CHANGE_NAV_KEY } from '../constants/ActionTypes';
 
-function changeCurrentPath(path) {
+function changePathAction(path, text) {
     return { 
         type: CHANGE_CURRENT_PATH,
-        path
+        path,
+        text
     };
 }
 
-export function isChangeCurrentPath(path) {
+export function changePath(path, text) {
     return (dispatch, getState) => {
-        if (getState().currentPath !== path) {
-            dispatch(changeCurrentPath(path));
+        if (getState().pathInfo.path !== path) {
+            dispatch(changePathAction(path, text));
         }
     };
 }
 
-function changeNavMenuKey(key) {
+function changeNavKeyAction(key) {
     return {
-        type: CHANGE_NAV_MENU_KEY,
+        type: CHANGE_NAV_KEY,
         key
     };
 }
 
-export function isChangeNavMenuKey(key) {
+export function changeNavKey(key) {
     return (dispatch, getState) => {
-        if (getState().navMenuKey !== key) {
-            dispatch(changeNavMenuKey(key));
+        if (getState().navKey !== key) {
+            dispatch(changeNavKeyAction(key));
         }
     };
 }
