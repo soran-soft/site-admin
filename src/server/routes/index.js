@@ -9,7 +9,8 @@ router
 	.get('/500', indexCtrl.serverError)
 
     .get('/api', apiCtrl.api)
-	.get('/api/initialState', apiCtrl.initialState)
+    .get('/api/initialState', apiCtrl.initialState)
+	.get('/api/douban', apiCtrl.douban)
 
     .get('/*', indexCtrl.index)
 

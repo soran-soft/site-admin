@@ -60,6 +60,8 @@ export default {
                 navKey: initData.navKey
             };
 
+            console.log(initialState);
+
             const store = configureStore(initialState);
 
             const content = renderToString(

@@ -11,7 +11,7 @@ webpack-server: $(DEV_JS); node --harmony ./dev/server/webpack.js
 watch:; $(BIN)/babel src -d dev -e 0 -s inline -w
 
 build:; $(BIN)/webpack --progress
-clean:; rm -rf dist
+clean:; rm -rf dist dev
 
 $(DEV_JS): dev/%.js: src/%.js
 	mkdir -p $(dir $@)

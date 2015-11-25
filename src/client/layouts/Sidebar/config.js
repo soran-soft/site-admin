@@ -55,5 +55,22 @@ export default
                 path: '/pie/3'
             }
         ]
+    }, {
+        text: '豆瓣',
+        icon: 'icon-database',
+        items: [
+            {
+                text: '电影',
+                path: '/douban/movies'
+            }, 
+            {
+                text: '音乐',
+                path: '/douban/musics'
+            }, 
+            {
+                text: '小说',
+                path: '/douban/books'
+            }
+        ]
     }
 ]

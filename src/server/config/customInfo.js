@@ -39,5 +39,17 @@ export default [
         path: '/pie/3',
         text: 'pie-3',
         navKey: 3
-    }, 
+    }, {
+        path: '/douban/movies',
+        text: '电影',
+        navKey: 4
+    }, {
+        path: '/douban/musics',
+        text: '音乐',
+        navKey: 4
+    }, {
+        path: '/douban/books',
+        text: '小说',
+        navKey: 4
+    }
 ]
