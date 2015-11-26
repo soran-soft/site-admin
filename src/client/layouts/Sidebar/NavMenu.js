@@ -21,17 +21,17 @@ class NavMenu extends Component {
                                 <Link to={menu.path} 
                                     onClick={() => {
                                         changeNavKey(i);
-                                        changePath(menu.path, menu.text);
+                                        changePath(menu.path, menu.msg);
                                     }}>
                                     <i className={'iconfont ' + menu.icon}></i>
-                                    {menu.text}
+                                    {menu.msg}
                                 </Link>
                             }
                             
                             {!menu.path && 
                                 <a href="javascript:;" onClick={() => changeNavKey(i)}>
                                     <i className={'iconfont ' + menu.icon}></i>
-                                    {menu.text}
+                                    {menu.msg}
                                     <i className={'iconfont icon-angle' + (flag ? 'down' : 'left')}></i>
                                 </a>
                             }
@@ -47,8 +47,8 @@ class NavMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        currentPath: state.pathInfo.path,
-        navKey: state.navKey
+        currentPath: state.main.path,
+        navKey: state.main.navKey
     };
 }
 

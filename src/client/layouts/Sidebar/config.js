@@ -1,74 +1,74 @@
 export default 
 [
     {
-        text: 'Dashboard',
+        msg: 'Dashboard',
         icon: 'icon-home',
         path: '/'
     }, {
-        text: 'Line',
+        msg: 'Line',
         icon: 'icon-chartline',
         items: [
             {
-                text: 'line-1',
+                msg: 'line-1',
                 path: '/line/1'
             }, 
             {
-                text: 'line-2',
+                msg: 'line-2',
                 path: '/line/2'
             }, 
             {
-                text: 'line-3',
+                msg: 'line-3',
                 path: '/line/3'
             }
         ]
     }, {
-        text: 'Bar',
+        msg: 'Bar',
         icon: 'icon-chartbar',
         items: [
             {
-                text: 'bar-1',
+                msg: 'bar-1',
                 path: '/bar/1'
             }, 
             {
-                text: 'bar-2',
+                msg: 'bar-2',
                 path: '/bar/2'
             }, 
             {
-                text: 'bar-3',
+                msg: 'bar-3',
                 path: '/bar/3'
             }
         ]
     }, {
-        text: 'Pie',
+        msg: 'Pie',
         icon: 'icon-database',
         items: [
             {
-                text: 'pie-1',
+                msg: 'pie-1',
                 path: '/pie/1'
             }, 
             {
-                text: 'pie-2',
+                msg: 'pie-2',
                 path: '/pie/2'
             }, 
             {
-                text: 'pie-3',
+                msg: 'pie-3',
                 path: '/pie/3'
             }
         ]
     }, {
-        text: '豆瓣',
+        msg: '豆瓣',
         icon: 'icon-database',
         items: [
             {
-                text: '电影',
+                msg: '电影',
                 path: '/douban/movies'
             }, 
             {
-                text: '音乐',
+                msg: '音乐',
                 path: '/douban/musics'
             }, 
             {
-                text: '小说',
+                msg: '小说',
                 path: '/douban/books'
             }
         ]

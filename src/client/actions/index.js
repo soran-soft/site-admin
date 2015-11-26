@@ -1,17 +1,17 @@
 import { CHANGE_CURRENT_PATH, CHANGE_NAV_KEY } from '../constants/ActionTypes';
 
-function changePathAction(path, text) {
+function changePathAction(path, msg) {
     return { 
         type: CHANGE_CURRENT_PATH,
         path,
-        text
+        msg
     };
 }
 
-export function changePath(path, text) {
+export function changePath(path, msg) {
     return (dispatch, getState) => {
-        if (getState().pathInfo.path !== path) {
-            dispatch(changePathAction(path, text));
+        if (getState().main.path !== path) {
+            dispatch(changePathAction(path, msg));
         }
     };
 }
@@ -25,7 +25,7 @@ function changeNavKeyAction(key) {
 
 export function changeNavKey(key) {
     return (dispatch, getState) => {
-        if (getState().navKey !== key) {
+        if (getState().main.navKey !== key) {
             dispatch(changeNavKeyAction(key));
         }
     };

@@ -14,7 +14,7 @@ class SubMenu extends Component {
     }
 
     componentDidMount() { // 首次打开网页时，如何url是子菜单项，让其展开
-        let { navIndex, navKey } = this.props,
+        let { navIndex, main: { navKey } } = this.props,
             dom = findDOMNode(this.refs.subMenu);
 
         this.height = dom.offsetHeight;
@@ -25,7 +25,7 @@ class SubMenu extends Component {
     }
 
     render() {
-        let { items, pathInfo, navIndex, navKey, changePath } = this.props,
+        let { items, main: { path, navKey }, navIndex, changePath } = this.props,
             style = {};
 
         if (this.height > 0) {
@@ -40,9 +40,9 @@ class SubMenu extends Component {
             <ul className="sub-menu" ref="subMenu" style={style}>
                 {items.map((sub, i) => {
                     return (
-                        <li key={i} className={(sub.path === pathInfo.path) ? 'active' : ''}>
+                        <li key={i} className={(sub.path === path) ? 'active' : ''}>
                             <Link to={sub.path}
-                                onClick={() => changePath(sub.path, sub.text)}>{sub.text}</Link>
+                                onClick={() => changePath(sub.path, sub.msg)}>{sub.msg}</Link>
                         </li>
                     );
                 })}
@@ -53,8 +53,7 @@ class SubMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        pathInfo: state.pathInfo,
-        navKey: state.navKey
+        main: state.main
     };
 }
 

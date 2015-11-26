@@ -8,7 +8,7 @@ class ContentHeader extends Component {
     }
 
     render() {
-        let { text } = this.props;
+        let { msg } = this.props;
         let config = {
             title: '电影',
             items: [{
@@ -21,7 +21,7 @@ class ContentHeader extends Component {
 
         return (
             <header className="admin-content-header">
-                <h1 className="title">{text}</h1>
+                <h1 className="title">{msg}</h1>
                 <Dropdown config={config} handleClick={this.dropdownHandle.bind(this)} />
             </header>
         );
@@ -30,7 +30,7 @@ class ContentHeader extends Component {
 
 function mapStateToProps(state) {
     return {
-        text: state.pathInfo.text
+        msg: state.main.msg
     };
 }
 

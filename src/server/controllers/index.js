@@ -40,27 +40,19 @@ export default {
             //     });
 
             let pathname = location.pathname,
-                initData;
+                initialState = {};
 
             customInfo.some(function (v) { // All params: value, index, array
                 let flag = (v.path === pathname);
 
                 if (flag) {
-                    initData = v;
+                    initialState.main = v;
                 }
 
                 return flag;
             });
 
-            let initialState = {
-                pathInfo: {
-                    path: initData.path,
-                    text: initData.text
-                },
-                navKey: initData.navKey
-            };
-
-            // console.log(initialState);
+            console.log(initialState);
 
             const store = configureStore(initialState);
 
