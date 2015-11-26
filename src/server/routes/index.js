@@ -10,7 +10,7 @@ router
 
     .get('/api', apiCtrl.api)
     .get('/api/initialState', apiCtrl.initialState)
-	.get('/api/douban', apiCtrl.douban)
+	.get('/api/douban/:type', apiCtrl.douban)
 
     .get('/*', indexCtrl.index)
 

@@ -58,9 +58,9 @@ let option = {
     ]
 };
 
-export default function (domId) {
+export default function (domId, query) {
     if (option.xAxis[0].data.length === 0 & option.series[0].data.length === 0) {
-        fetch('/api/douban')
+        fetch('/api/douban/movie?' + query)
             .then(function (response) {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");

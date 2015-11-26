@@ -1,3 +1,4 @@
+// import querystring from 'querystring';
 import initialState from '../mock/initialState';
 
 export default {
@@ -10,8 +11,20 @@ export default {
     },
 
     douban: function *(next) {
-        this.body = 
-        yield fetch('http://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0')
+        // console.log(querystring.parse(this.req._parsedUrl.query));
+
+        let type = this.params.type,
+            url = '';
+
+        if (type === 'movie') {
+            let query = this.req._parsedUrl.query; // tag, sort
+
+            url = `http://movie.douban.com/j/search_subjects?type=movie&${query}&page_limit=20&page_start=0`;
+        } else if (type === 'tags') {
+            url = 'http://movie.douban.com/j/search_tags?type=movie';
+        }
+
+        this.body = yield fetch(url)
             .then(function (response) {
                 if (response.status >= 400) {
                     throw new Error("Bad response from server");

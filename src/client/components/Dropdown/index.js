@@ -16,12 +16,12 @@ export default class Dropdown extends Component {
     componentDidMount() {
         self = this;
 
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function (e) {console.log(self.state.open);
             if (self.state.open) {
                 self.setState({
                     open: false
                 });
-            }
+            }console.log(self.state.open);
         }, false);
     }
 
@@ -35,11 +35,11 @@ export default class Dropdown extends Component {
     }
 
     render() {
-        let { config, handleClick } = this.props;
+        let { config, handleClick, asStyle } = this.props;
         let btnClick = this.btnClick.bind(this);
 
         return (
-            <div className="as-dropdown">
+            <div className={'as-dropdown ' + (asStyle ? asStyle : '')}>
                 <button onClick={btnClick}>{config.title}<i className="iconfont icon-sortdown"></i></button>
                 <ul className={this.state.open ? 'open' : ''}>
                     {config.items.map((v, i) => {

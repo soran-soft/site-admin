@@ -11,9 +11,16 @@ $dropdown-menu-border-color: #ccc;
 $dropdown-menu-border-radius: .04rem;
 $dropdown-menu-bg-hover: #e6e6e6;
 
+$dropdown-inline-margin: 0 .2rem .2rem 0;
+
 /* 下拉菜单 */
 .as-dropdown {
     position: relative;
+
+    &.inline {
+        display: inline-block;
+        margin: $dropdown-inline-margin;
+    }
 
     button {
         outline: none;
@@ -30,14 +37,15 @@ $dropdown-menu-bg-hover: #e6e6e6;
 
         i {
             position: relative;
-            top: -0.03rem;
-            padding-left: .02rem;
+            top: -0.04rem;
+            padding-left: .03rem;
         }
     }
 
     ul {
         display: none;
-        margin-top: .05rem;
+        min-width: 1.2rem;
+        margin-top: .02rem;
         background-color: $dropdown-menu-bg;
         padding: $dropdown-menu-padding;
         border: 1px solid $dropdown-menu-border-color;
