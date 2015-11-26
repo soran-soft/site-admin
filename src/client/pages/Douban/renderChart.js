@@ -28,7 +28,7 @@ let option = {
             boundaryGap : false,
             axisLabel : {
               interval : 0,  //类目全显
-              rotate : -45   //顺时针旋转45度
+              rotate : -30   //顺时针旋转45度
             },
             data : []                  // must
         }
@@ -41,7 +41,7 @@ let option = {
     series : [
         {
             name:'评分',
-            type:'bar',
+            type:'line',
             data:[],                  // must
             markPoint : {
                 data : [

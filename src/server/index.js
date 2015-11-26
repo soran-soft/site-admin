@@ -8,7 +8,7 @@ import router from './routes/';
 
 const app = koa();
 
-app.use(serve(path.join(__dirname, '../../dist')));
+app.use(serve(path.join(__dirname, '../../static')));
 
 app.use(views(path.join(__dirname, '../../views'), {
     cache: true,

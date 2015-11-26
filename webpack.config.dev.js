@@ -12,7 +12,7 @@ module.exports = {
     './src/client/index.js'
   ],
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, '/static'),
     publicPath: '//127.0.0.1:3001/static/',
     filename: 'js/app.js'
   },
@@ -34,11 +34,14 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('js/common.js'),
-    new ExtractTextPlugin('css/style.css'),
+    new ExtractTextPlugin('css/style.css', { allChunks: true }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'BROWSER': true
+      }
     })
   ]
 };

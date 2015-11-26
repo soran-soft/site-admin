@@ -1,4 +1,6 @@
-import './assets/sass/index.scss';
+if (process.env.BROWSER) {
+    require('./assets/sass/index.scss');
+}
 
 import React from 'react';
 import { render } from 'react-dom';

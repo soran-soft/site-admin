@@ -7,7 +7,8 @@
     "start": "node --harmony dev/server/index.js",
     "clean": "make clean",
     "build": "make -j5 build",
-    "dev": "make -j5 webpack-server dev-server watch"
+    "dev": "make -j5 webpack-server NODE_ENV=development dev-server watch",
+    "pro": "make -j5 build NODE_ENV=production dev-server"
   },
   "repository": {
     "type": "git",

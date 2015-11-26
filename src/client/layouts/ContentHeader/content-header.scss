@@ -1,8 +1,9 @@
 .admin-content-header {
-    border-bottom: 1px solid #ccc;
     margin-bottom: .2rem;
 
     .title {
         font-size: $content-header-title-fontSize;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: .2rem;
     }
 }

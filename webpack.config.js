@@ -7,7 +7,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: './src/client/index.js',
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, '/static'),
     publicPath: '../',
     filename: 'js/app.js'
   },
@@ -30,11 +30,14 @@ module.exports = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('js/common.js'),
     new ExtractTextPlugin('css/style.css'),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'BROWSER': true
+      }
     })
   ]
 };
