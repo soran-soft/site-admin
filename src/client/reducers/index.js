@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-import * as mainReducer from './main';
+import main from './main';
+import douban from './douban';
 
-const rootReducer = combineReducers(mainReducer);
+const rootReducer = combineReducers({
+    main,
+    douban
+});
 
 export default rootReducer;

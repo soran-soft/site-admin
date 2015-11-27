@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changePath, changeNavKey } from '../../actions/';
+import { changePath, changeNavKey } from '../../actions/main';
 import { Link } from 'react-router';
 import NavMenu from './NavMenu';
 

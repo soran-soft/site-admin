@@ -1,9 +1,13 @@
 import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
-import DropdownSelect from '../../components/Dropdown/Select';
-import renderChart from './renderChart';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchMovie } from '../../actions/douban';
+import { DropdownSelect } from '../../components/Dropdown/';
+import { Table } from '../../components/Table/';
+import chart from './kit/chart';
 
-export default class DoubanMovies extends Component {
+class DoubanMovies extends Component {
     static defaultProps = {
         sortConfig: { // 排序按钮的配置
             title: '按热度排序',
@@ -20,89 +24,79 @@ export default class DoubanMovies extends Component {
         },
         chart: { // 图表的图例及图表类型
             name: '评分',
-            type: 'line'
+            type: 'bar'
         }
-    }
-
-    state = {
-        tagsConfig: {
-            title: '热门',
-            items: []
-        }
-    }
-
-    // 关键词检索
-    asKeyWord = {
-        tag: '热门',
-        sort: this.props.sortConfig.items[0].sort
-    }
-
-    componentWillMount() {
-        fetch('/api/douban/tags')
-            .then(function (response) {
-                if (response.status >= 400) {
-                    throw new Error("Bad response from server");
-                }
-                return response.json();
-            })
-            .then(function (json) {
-                let tmp = this.state.tagsConfig;
-
-                json.tags.forEach((v, i) => {
-                    tmp.items.push({msg: v});
-                });
-
-                this.setState({
-                    tagsConfig: tmp
-                });
-            }.bind(this));
     }
 
     componentDidMount() {
-        let { tag, sort } = this.asKeyWord,
-            { name, type } = this.props.chart;
+        let { chart: { name, type }, keywords: { tag, sort }, movies } = this.props;
 
         let chartInfo = {
             tag, sort, name, type
         };
 
         // 渲染图表
-        renderChart('douban-movies', `tag=${tag}&sort=${sort}`, chartInfo);
+        chart('douban-movies', chartInfo, movies[`${tag}&${sort}`]);
     }
 
     dropdownTagsHandle(tag) {
-        this.asKeyWord.tag = tag;
-
-        let { sort } = this.asKeyWord,
-            { name, type } = this.props.chart;
+        let { chart: { name, type }, keywords: { sort }, fetchMovie } = this.props;
 
         let chartInfo = {
             tag, sort, name, type
         };
 
-        renderChart('douban-movies', `tag=${tag}&sort=${sort}`, chartInfo);
+        fetchMovie(tag, sort, function (movie) {
+            chart('douban-movies', chartInfo, movie);
+        });
     }
     
     dropdownSortHandle(sort) {
-        this.asKeyWord.sort = sort;
-
-        let { tag } = this.asKeyWord,
-            { name, type } = this.props.chart;
+        let { chart: { name, type }, keywords: { tag }, fetchMovie } = this.props;
 
         let chartInfo = {
             tag, sort, name, type
         };
 
-        renderChart('douban-movies', `tag=${tag}&sort=${sort}`, chartInfo);
+        fetchMovie(tag, sort, function (movie) {
+            chart('douban-movies', chartInfo, movie);
+        });
     }
 
     render() {
+        let { sortConfig, tags } = this.props,
+            tagsConfig = {
+            title: tags[0],
+            items: []
+        };
+
+        tags.forEach(v => tagsConfig.items.push({msg: v}));
+
         return (
             <section>
-                <DropdownSelect asStyle='inline' config={this.state.tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
-                <DropdownSelect asStyle='inline' tag='sort' config={this.props.sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
+                <DropdownSelect asStyle='inline' config={tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
+                <DropdownSelect asStyle='inline' tag='sort' config={sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
+                
                 <div id="douban-movies" style={{height: '400px'}}></div>
+
+                <Table />
             </section>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        tags: state.douban.tags,
+        movies: state.douban.movies,
+        keywords: state.douban.keywords
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchMovie
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoubanMovies);

@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from '../layouts/App';
 import Home from '../pages/Home/';
 import NotMatch from '../pages/NotMatch/';
-import DoubanMovies from '../pages/Douban/movies';
+import DoubanMovies from '../pages/Douban/Movies';
 import Line_1 from '../pages/Line/1';
 
 export default (

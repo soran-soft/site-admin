@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changePath, changeNavKey } from '../../actions/';
+import { changePath, changeNavKey } from '../../actions/main';
 import { Link } from 'react-router';
 import SubMenu from './SubMenu';
-import config from './config';
 
 class NavMenu extends Component {
+    static defaultProps = {
+        config: require('./config')
+    }
+
     render() {
-        let { currentPath, navKey, changePath, changeNavKey } = this.props;
+        let { currentPath, navKey, changePath, changeNavKey, config } = this.props;
 
         return (
             <ul className="nav-menu">

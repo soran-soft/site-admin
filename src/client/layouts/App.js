@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changePath } from '../actions/';
+import { changePath } from '../actions/main';
 import Header from './Header/';
 import Sidebar from './Sidebar/';
 import ContentHeader from './ContentHeader/';

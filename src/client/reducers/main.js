@@ -1,6 +1,6 @@
 import { CHANGE_CURRENT_PATH, CHANGE_NAV_KEY } from '../constants/ActionTypes';
 
-export function main(state = {
+export default function main(state = {
     path: '/',
     msg: 'Dashboard',
     navKey: 0

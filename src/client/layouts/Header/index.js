@@ -4,7 +4,7 @@ if (process.env.BROWSER) {
 
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import DropdownLink from '../../components/Dropdown/Link';
+import { DropdownLink } from '../../components/Dropdown/';
 
 class Header extends Component {
     static defaultProps = {

@@ -1,0 +1,18 @@
+$table-td-padding: .06rem .12rem;
+$table-td-border-color: #ddd;
+$table-tr-zebra-color: #eee;
+
+.as-table {
+    thead > tr {
+        font-weight: bold;
+    }
+
+    th, td {
+        border: 1px solid $table-td-border-color;
+        padding: $table-td-padding;
+    }
+    
+    tbody > tr:nth-child(odd) {
+        background-color: $table-tr-zebra-color;
+    }
+}

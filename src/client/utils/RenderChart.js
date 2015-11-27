@@ -1,7 +1,39 @@
-import fetch from 'isomorphic-fetch';
+export default class RenderChart {
+    constructor() {
+        
+    }
 
-class ChartOption {
-    constructor(title, legend, xAxis, series) {
+    initChart(domId) {
+        this.mychart = echarts.init(document.getElementById(domId));
+
+        this.mychart.showLoading({          // loading
+            effect: 'bubble', // 'spin' | 'bar' | 'ring' | 'whirling' | 'dynamicLine' | 'bubble'
+            textStyle: {
+                color: '#666',
+                fontSize: 24
+            }
+        });         
+        this.mychart.setTheme('macarons');  // theme: macarons, infographic
+    }
+
+    // 渲染图表
+    setOption() {
+        this.mychart.setOption(this.option).hideLoading();  
+    }
+
+    getOption(title, legend, xAxis, series, toolSwitch) {
+        let isToolbox, isCalculable, isBoundaryGap;
+
+        if (!toolSwitch) {
+            isToolbox = true;
+            isCalculable = true;
+            isBoundaryGap = true;
+        } else {
+            isToolbox = (typeof toolSwitch.toolbox !== 'undefined' ? toolSwitch.toolbox : true);
+            isCalculable = (typeof toolSwitch.calculable !== 'undefined' ? toolSwitch.calculable : true);
+            isBoundaryGap = (typeof toolSwitch.boundaryGap !== 'undefined' ? toolSwitch.boundaryGap : true);
+        }
+
         this.option = {
             title: title,                                                      // title: { text, subtext }
             tooltip: {
@@ -11,7 +43,7 @@ class ChartOption {
                 data: legend.data                                              // legend: { data }
             },                                                     
             toolbox: {
-                show: true,
+                show: isToolbox,                                               // toolbox switch
                 feature: {
                     mark: {show: true},
                     dataView: {show: true, readOnly: false},
@@ -20,11 +52,11 @@ class ChartOption {
                     saveAsImage: {show: true}
                 }
             },
-            calculable: true,
+            calculable: isCalculable,                                          // calculable switch
             xAxis: [
                 {
                     type: 'category',
-                    boundaryGap: false,
+                    boundaryGap: isBoundaryGap,                                // boundaryGap switch
                     axisLabel: xAxis.axisLabel ? xAxis.axisLabel : {},         // xAxis.axisLabel: { interval: 0,  rotate: -30 } 
                     data: xAxis.data                                           // xAxis.data
                 }
@@ -53,51 +85,5 @@ class ChartOption {
                 }
             ]
         };
-
-        // 返回渲染图表需要的数据
-        return this.option;
     }
 }
-
-export default function (domId, query, chartInfo) {
-    let { tag, sort, name, type } = chartInfo;
-
-    fetch(`/api/douban/movie?${query}`)
-        .then(function (response) {
-            if (response.status >= 400) {
-                throw new Error("Bad response from server");
-            }
-            return response.json();
-        })
-        .then(function (json) {
-            var title = {
-                text: tag + '电影',
-                subtext: sort
-            },
-            legend = {
-                data: [name]
-            },
-            xAxis = {
-                axisLabel: {
-                    interval: 0,  //类目全显
-                    rotate: '-30'   //顺时针旋转
-                },
-                data: []
-            },
-            series = {
-                name: name,
-                type: type,
-                data: []
-            };
-
-            json.subjects.forEach(function (v, i) {
-                xAxis.data.push(v.title);
-                series.data.push(v.rate);
-            });
-
-            let option = new ChartOption(title, legend, xAxis, series);
-
-            // 渲染图表
-            echarts.init(document.getElementById(domId)).setOption(option);
-        });
-}                

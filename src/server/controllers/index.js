@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import customInfo from '../config/customInfo';
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -8,6 +7,7 @@ import createLocation from 'history/lib/createLocation';
 import { RoutingContext, match } from 'react-router';
 import routes from '../../client/routes/';
 import configureStore from '../../client/store/configureStore';
+import sidebarConfig from '../../client/layouts/Sidebar/config';
 
 export default {
 	index: function *(next) {
@@ -40,19 +40,72 @@ export default {
             //     });
 
             let pathname = location.pathname,
-                initialState = {};
+                initialState = {
+                    main: {},
+                    douban: {}
+                };
 
-            customInfo.some(function (v) { // All params: value, index, array
-                let flag = (v.path === pathname);
+            // 查找client下的sidebar配置项，以获得initialState
+            let isFound = sidebarConfig.some(function (parent) {
+                if (!parent.path) {
+                    return parent.items.some(function (child) {
+                        if (child.path === pathname) {
+                            initialState.main = child;
+                            initialState.main.navKey = parent.navKey;
 
-                if (flag) {
-                    initialState.main = v;
+                            return true;
+                        }
+
+                        return false;
+                    });
+                } else if (parent.path === pathname) {
+                    initialState.main = {
+                        msg: parent.msg,
+                        path: parent.path,
+                        navKey: parent.navKey
+                    };
+
+                    return true;
                 }
 
-                return flag;
+                return false;
             });
 
-            console.log(initialState);
+            if (!isFound) {
+                initialState.main = {
+                    msg: 'NotFound',
+                    path: pathname,
+                    navKey: -1
+                };
+            }
+
+            let doubanTags = yield fetch('http://movie.douban.com/j/search_tags?type=movie')
+                .then(function (response) {
+                    if (response.status >= 400) {
+                        throw new Error("Bad response from server");
+                    }
+                    return response.json();
+                });
+
+            // tag: 热门, sort: recommend
+            let doubanMovies = yield fetch('http://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0')
+                .then(function (response) {
+                    if (response.status >= 400) {
+                        throw new Error("Bad response from server");
+                    }
+                    return response.json();
+                });
+
+            initialState.douban.keywords = {
+                tag: '热门',
+                sort: 'recommend'
+            };
+            initialState.douban.tags = doubanTags.tags;
+            initialState.douban.movies = {
+                '热门&recommend': doubanMovies.subjects
+            };
+
+            // console.log(initialState);
 
             const store = configureStore(initialState);
 

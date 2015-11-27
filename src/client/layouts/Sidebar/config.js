@@ -3,10 +3,12 @@ export default
     {
         msg: 'Dashboard',
         icon: 'icon-home',
-        path: '/'
+        path: '/',
+        navKey: 0
     }, {
         msg: 'Line',
         icon: 'icon-chartline',
+        navKey: 1,
         items: [
             {
                 msg: 'line-1',
@@ -24,6 +26,7 @@ export default
     }, {
         msg: 'Bar',
         icon: 'icon-chartbar',
+        navKey: 2,
         items: [
             {
                 msg: 'bar-1',
@@ -41,6 +44,7 @@ export default
     }, {
         msg: 'Pie',
         icon: 'icon-database',
+        navKey: 3,
         items: [
             {
                 msg: 'pie-1',
@@ -58,6 +62,7 @@ export default
     }, {
         msg: '豆瓣',
         icon: 'icon-database',
+        navKey: 4,
         items: [
             {
                 msg: '电影',
