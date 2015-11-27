@@ -1,23 +1,43 @@
 import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
-import Dropdown from '../../components/Dropdown/';
+import DropdownSelect from '../../components/Dropdown/Select';
 import renderChart from './renderChart';
 
 export default class DoubanMovies extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            tagsConfig: {
-                title: '类型',
-                items: []
-            }
-        };
+    static defaultProps = {
+        sortConfig: { // 排序按钮的配置
+            title: '按热度排序',
+            items: [{
+                msg: '按热度排序',
+                sort: 'recommend'
+            }, {
+                msg: '按时间排序',
+                sort: 'time'
+            }, {
+                msg: '按评分排序',
+                sort: 'rank'
+            }]
+        },
+        chart: { // 图表的图例及图表类型
+            name: '评分',
+            type: 'line'
+        }
     }
 
-    componentDidMount() {
-        let self = this;
+    state = {
+        tagsConfig: {
+            title: '热门',
+            items: []
+        }
+    }
 
+    // 关键词检索
+    asKeyWord = {
+        tag: '热门',
+        sort: this.props.sortConfig.items[0].sort
+    }
+
+    componentWillMount() {
         fetch('/api/douban/tags')
             .then(function (response) {
                 if (response.status >= 400) {
@@ -26,43 +46,61 @@ export default class DoubanMovies extends Component {
                 return response.json();
             })
             .then(function (json) {
-                let tmp = self.state.tagsConfig;
+                let tmp = this.state.tagsConfig;
 
                 json.tags.forEach((v, i) => {
                     tmp.items.push({msg: v});
                 });
 
-                self.setState({
+                this.setState({
                     tagsConfig: tmp
                 });
-            });
-
-        renderChart('douban-movies', 'tag=热门&sort=recommend');
+            }.bind(this));
     }
 
-    dropdownHandle(i) {
-        console.log(i);
+    componentDidMount() {
+        let { tag, sort } = this.asKeyWord,
+            { name, type } = this.props.chart;
+
+        let chartInfo = {
+            tag, sort, name, type
+        };
+
+        // 渲染图表
+        renderChart('douban-movies', `tag=${tag}&sort=${sort}`, chartInfo);
+    }
+
+    dropdownTagsHandle(tag) {
+        this.asKeyWord.tag = tag;
+
+        let { sort } = this.asKeyWord,
+            { name, type } = this.props.chart;
+
+        let chartInfo = {
+            tag, sort, name, type
+        };
+
+        renderChart('douban-movies', `tag=${tag}&sort=${sort}`, chartInfo);
+    }
+    
+    dropdownSortHandle(sort) {
+        this.asKeyWord.sort = sort;
+
+        let { tag } = this.asKeyWord,
+            { name, type } = this.props.chart;
+
+        let chartInfo = {
+            tag, sort, name, type
+        };
+
+        renderChart('douban-movies', `tag=${tag}&sort=${sort}`, chartInfo);
     }
 
     render() {
-        let sortConfig = {
-            title: '排序',
-            items: [{
-                msg: '按热度排序',
-                tag: 'recommend'
-            }, {
-                msg: '按时间排序',
-                tag: 'time'
-            }, {
-                msg: '按评分排序',
-                tag: 'rank'
-            }]
-        };
-
         return (
             <section>
-                <Dropdown asStyle='inline' config={sortConfig} handleClick={this.dropdownHandle.bind(this)} />
-                <Dropdown asStyle='inline' config={this.state.tagsConfig} handleClick={this.dropdownHandle.bind(this)} />
+                <DropdownSelect asStyle='inline' config={this.state.tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
+                <DropdownSelect asStyle='inline' tag='sort' config={this.props.sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
                 <div id="douban-movies" style={{height: '400px'}}></div>
             </section>
         );

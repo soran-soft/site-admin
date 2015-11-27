@@ -1,34 +1,40 @@
-import React, { Component, PropTypes } from 'react';
+if (process.env.BROWSER) {
+    require('./header.scss');
+}
+
+import React, { Component } from 'react';
 import { Link } from 'react-router';
+import DropdownLink from '../../components/Dropdown/Link';
 
 class Header extends Component {
+    static defaultProps = {
+        config: {
+            title: '用户名',
+            items: [{
+                key: 0,
+                msg: '豆瓣电影',
+                path: '/douban/movies'
+            }, {
+                key: 1,
+                msg: '用户信息',
+                path: '/user'
+            }, {
+                key: 2,
+                msg: '设置中心',
+                path: '/settings'
+            }]
+        }
+    }
+    
     render() {
         return (
             <header className="admin-header">
-                <h1 className="header-title"><Link to="/">DataCenter</Link></h1>
-                <ul className="header-user select-menu">
-                    <a href="javascript:;"><i className="iconfont icon-user"></i>username<i className="iconfont icon-angledown last"></i></a>
-                    <li>
-                        <Link to="/">xxx</Link>
-                    </li>
-                    <li>
-                        <Link to="/">xxx</Link>
-                    </li>
-                    <li>
-                        <Link to="/">xxx</Link>
-                    </li>
-                </ul>
+                <h1 className="title"><Link to="/">DataCenter</Link></h1>
+               
+                <DropdownLink type='fuse' asStyle='user-dropdown' config={this.props.config} />
             </header>
         );
     }
 }
-
-Header.propTypes = {
-    /*increment: PropTypes.func.isRequired,
-    incrementIfOdd: PropTypes.func.isRequired,
-    incrementAsync: PropTypes.func.isRequired,
-    decrement: PropTypes.func.isRequired,
-    counter: PropTypes.number.isRequired*/
-};
 
 export default Header;

@@ -1,4 +1,4 @@
-$dropdown-padding: .04rem .1rem .04rem .15rem;
+/* common */
 $dropdown-bg: #fff;
 $dropdown-color: #333;
 $dropdown-border-color: #ccc;
@@ -10,12 +10,22 @@ $dropdown-menu-bg: #fff;
 $dropdown-menu-border-color: #ccc;
 $dropdown-menu-border-radius: .04rem;
 $dropdown-menu-bg-hover: #e6e6e6;
+$dropdown-menu-color: #333;
 
 $dropdown-inline-margin: 0 .2rem .2rem 0;
 
-/* 下拉菜单 */
+/* as-dropdown */
+$dropdown-padding: .04rem .1rem .04rem .15rem;
+
+/* as-dropdown-fuse */
+$dropdown-fuse-padding: .04rem .2rem .04rem .25rem;
+
+/* 默认白色圆角按钮 */
 .as-dropdown {
     position: relative;
+    height: 100%;
+    color: $dropdown-color;
+    background-color: $dropdown-bg;
 
     &.inline {
         display: inline-block;
@@ -24,12 +34,13 @@ $dropdown-inline-margin: 0 .2rem .2rem 0;
 
     button {
         outline: none;
-        background-color: $dropdown-bg;
-        color: $dropdown-color;
+        background-color: inherit;
+        color: inherit;
         padding: $dropdown-padding;
         border: 1px solid $dropdown-border-color;
         border-radius: $dropdown-border-radius;
         cursor: pointer;
+        height: 100%;
 
         &:hover {
             background-color: $dropdown-bg-hover;
@@ -41,7 +52,40 @@ $dropdown-inline-margin: 0 .2rem .2rem 0;
             padding-left: .03rem;
         }
     }
+}
 
+/* 与父容器融合在一起 */
+.as-dropdown-fuse {
+    position: relative;
+    height: 100%;
+    color: inherit;
+    background-color: inherit;
+
+    &.inline {
+        display: inline-block;
+        margin: $dropdown-inline-margin;
+    }
+
+    button {
+        outline: none;
+        border: none;
+        background-color: inherit;
+        color: inherit;
+        padding: $dropdown-fuse-padding;
+        cursor: pointer;
+        height: 100%;
+
+        i {
+            position: relative;
+            top: -0.04rem;
+            padding-left: .03rem;
+        }
+    }
+}
+
+/* 下拉框 */
+.as-dropdown,
+.as-dropdown-fuse {
     ul {
         display: none;
         min-width: 1.2rem;
@@ -60,7 +104,7 @@ $dropdown-inline-margin: 0 .2rem .2rem 0;
         }
 
         li a {
-            color: inherit;
+            color: $dropdown-menu-color;
             display: block;
             padding: .03rem .2rem;
 

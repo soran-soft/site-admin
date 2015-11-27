@@ -2,10 +2,11 @@
 
     <div id="root"><%- appString %></div>
 
-    <script src="/js/echarts-all.js"></script>
     <script>
       window.__initialState = JSON.parse('<%- initialState %>');
     </script>
+    
+    <script src="/lib/echarts-all.js" defer></script>
 
     <% if (NODE_ENV == 'development') { %>
       <script src="//127.0.0.1:3001/static/js/common.js" defer></script>
