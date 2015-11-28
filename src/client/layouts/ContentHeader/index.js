@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+    require('./content-header.scss');
+}
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

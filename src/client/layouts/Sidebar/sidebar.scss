@@ -1,10 +1,20 @@
+$sidebar-top: 42px;
+$sidebar-width: 2.25rem;
+$sidebar-nav-menu-bg: #2a3542;
+$sidebar-nav-menu-bg-active: #24272d;
+$sidebar-sub-menu-bg: #35404d;
+$sidebar-menu-color: #91979e;
+$sidebar-menu-color-active: #c25e5a;
+$sidebar-nav-menu-line-height: 40px;
+
 .admin-sidebar {
     position: fixed;
-    top: $header-height;
+    top: $sidebar-top;
     left: 0;
     width: $sidebar-width;
     height: 100%;
     background-color: $sidebar-nav-menu-bg;
+    z-index: 999;
 
     li a {
         display: block;
@@ -19,6 +29,11 @@
         i {
             padding-right: .1rem;
             font-size: .16rem;
+            width: .2rem;
+
+            &:first-child {
+                float: left;
+            }
 
             &:last-child {
                 float: right;
@@ -41,15 +56,20 @@
         }
 
         ul {
-            text-indent: .26rem;
+            text-indent: .3rem;
             background-color: $sidebar-sub-menu-bg;
         }
     }
 
     .sub-menu {
         // display: none;
+        height: 0;
         overflow: hidden;
-        @include css3(transition, height .3s ease-out);
+        -webkit-transition: height .3s ease-out;
+        -moz-transition: height .3s ease-out;
+        -ms-transition: height .3s ease-out;
+        -o-transition: height .3s ease-out;
+        transition: height .3s ease-out;
 
         li:hover > a,
         li.active > a {

@@ -1,3 +1,9 @@
+/* @css 命名前缀说明
+ * admin- 布局样式
+ * as-    组件样式
+ * df-    自定义样式 
+ */
+
 @import './vars';
 @import './mixin';
 @import './reset';
@@ -5,12 +11,3 @@
 @import './type';
 
 @import './iconfont';
-
-@import '../../layouts/app';
-
-// @import '../../layouts/Header/header';
-@import '../../layouts/Sidebar/sidebar';
-@import '../../layouts/Footer/footer';
-
-// @import '../../pages/page';
-@import '../../layouts/ContentHeader/content-header';

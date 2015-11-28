@@ -88,7 +88,7 @@ export default {
                 });
 
             // tag: 热门, sort: recommend
-            let doubanMovies = yield fetch('http://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0')
+            /*let doubanMovies = yield fetch('http://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0')
                 .then(function (response) {
                     if (response.status >= 400) {
                         throw new Error("Bad response from server");
@@ -96,13 +96,17 @@ export default {
                     return response.json();
                 });
 
-            initialState.douban.keywords = {
-                tag: '热门',
-                sort: 'recommend'
-            };
+            
             initialState.douban.tags = doubanTags.tags;
             initialState.douban.movies = {
                 '热门&recommend': doubanMovies.subjects
+            };*/
+
+            initialState.douban.tags = [];
+            initialState.douban.movies = {};
+            initialState.douban.keywords = {
+                tag: '热门',
+                sort: 'recommend'
             };
 
             // console.log(initialState);

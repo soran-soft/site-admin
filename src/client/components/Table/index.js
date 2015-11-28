@@ -6,40 +6,36 @@ import React, { Component, PropTypes } from 'react';
 
 export class Table extends Component {
     static propTypes = {
-        
+        asStyle: PropTypes.string,
+        config: PropTypes.shape({
+            title: PropTypes.array.isRequired,
+            data: PropTypes.array.isRequired   // [{}]
+        }).isRequired
     }
 
     render() {
+        let { config: { title, data }, asStyle } = this.props;
+
+        if (!asStyle) {
+            asStyle = '';
+        }
+
         return (
-            <table className="as-table">
+            <table className={'as-table ' + asStyle}>
                 <thead>
                     <tr>
-                        <th>00000000000001</th>
-                        <th>00000000000002</th>
-                        <th>00000000000003</th>
+                        {title.map((v, i) => <th key={i}>{v}</th>)}
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>00000000000001</td>
-                        <td>00000000000002</td>
-                        <td>00000000000003</td>
-                    </tr>
-                    <tr>
-                        <td>00000000000001</td>
-                        <td>00000000000002</td>
-                        <td>00000000000003</td>
-                    </tr>
-                    <tr>
-                        <td>00000000000001</td>
-                        <td>00000000000002</td>
-                        <td>00000000000003</td>
-                    </tr>
-                    <tr>
-                        <td>00000000000001</td>
-                        <td>00000000000002</td>
-                        <td>00000000000003</td>
-                    </tr>
+                    {data.map((v, i) => {
+                        return (
+                            <tr key={i}>
+                                <td>{v.title}</td>
+                                <td>{v.rate}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         );

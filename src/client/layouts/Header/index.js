@@ -31,7 +31,7 @@ class Header extends Component {
             <header className="admin-header">
                 <h1 className="title"><Link to="/">DataCenter</Link></h1>
                
-                <DropdownLink type='fuse' asStyle='user-dropdown' config={this.props.config} />
+                <DropdownLink type="fuse" preIcon="icon-user" asStyle="user-dropdown" config={this.props.config} />
             </header>
         );
     }

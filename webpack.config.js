@@ -29,7 +29,7 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('js/common.js'),
-    new ExtractTextPlugin('css/style.css'),
+    new ExtractTextPlugin('css/style.css', { allChunks: true }),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false }
     }),

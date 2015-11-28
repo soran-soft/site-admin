@@ -8,3 +8,31 @@
     clear: both;
 }
 
+/* table */
+.table {
+    text-align: left;
+
+    thead > tr {
+        font-weight: bold;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: .06rem .12rem;
+    }
+}
+
+/* button */
+.button {
+    outline: none;
+    background-color: #fff;
+    color: #333;
+    padding: .04rem .1rem;
+    border: 1px solid #ccc;
+    border-radius: .04rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #e6e6e6;
+    }
+}

@@ -4,15 +4,10 @@ import App from '../layouts/App';
 import Home from '../pages/Home/';
 import NotMatch from '../pages/NotMatch/';
 import DoubanMovies from '../pages/Douban/Movies';
-import Line_1 from '../pages/Line/1';
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={Home} />
-
-        <Route path="line">
-            <Route path="1" component={Line_1} />
-        </Route>
+        <IndexRoute component={DoubanMovies} />
 
         <Route path="douban">
             <Route path="movies" component={DoubanMovies} />

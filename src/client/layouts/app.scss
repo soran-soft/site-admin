@@ -1,11 +1,19 @@
+/* main */
+$main-min-width: 8rem;
+
+/* content */
+$content-bg: #fff;
+$content-min-height: 6rem;
+$content-margin: .42rem 0 0 2.25rem;
+
 .admin-main {
     position: relative;
     overflow: hidden;
-    min-width: $total-min-width;
+    min-width: $main-min-width;
 }
 .admin-content {
     background-color: $content-bg;
-    margin: $header-height 0 0 $sidebar-width;
+    margin: $content-margin;
     min-height: $content-min-height;
     padding: .1rem .2rem;
     color: #333;

@@ -7,34 +7,9 @@ import { Link } from 'react-router';
 import NavMenu from './NavMenu';
 
 class SubMenu extends Component {
-    constructor(props) {
-        super(props);
-
-        this.height = 0;
-    }
-
-    componentDidMount() { // 首次打开网页时，如何url是子菜单项，让其展开
-        let { navIndex, main: { navKey } } = this.props,
-            dom = findDOMNode(this.refs.subMenu);
-
-        this.height = dom.offsetHeight;
-
-        if (navKey !== navIndex) {
-            dom.style.height = 0;
-        }
-    }
-
     render() {
         let { items, main: { path, navKey }, navIndex, changePath } = this.props,
-            style = {};
-
-        if (this.height > 0) {
-            if (navKey === navIndex) {
-                style = {height: this.height};
-            } else {
-                style = {height: 0};
-            }
-        } 
+            style = (navIndex === navKey) ? { height: 40*items.length } : { height: 0 };
 
         return (
             <ul className="sub-menu" ref="subMenu" style={style}>

@@ -8,14 +8,10 @@ export default class DropdownLink extends Component {
     static propTypes = {
         type: PropTypes.string,                   // 下拉菜单主题样式
         asStyle: PropTypes.string,                // 自定义样式
+        preIcon: PropTypes.string,                // 前置图标的class
         config: PropTypes.shape({                 
             title: PropTypes.string.isRequired,   // 按钮当前显示的标题
-            items: PropTypes.arrayOf(             // 子选项
-                PropTypes.shape({
-                    msg: PropTypes.string.isRequired,
-                    path: PropTypes.string.isRequired
-                }).isRequired
-            ).isRequired     
+            items: PropTypes.array.isRequired     // 子选项 [{msg, path}]  
         }).isRequired
     }
 
@@ -43,7 +39,7 @@ export default class DropdownLink extends Component {
     }
 
     render() {
-        let { config, asStyle, type } = this.props;
+        let { config, asStyle, type, preIcon } = this.props;
         let btnClick = this.btnClick.bind(this);
 
         if (!asStyle) {
@@ -58,9 +54,13 @@ export default class DropdownLink extends Component {
 
         return (
             <div className={type + asStyle}>
-                <button onClick={btnClick}>{config.title}<i className="iconfont icon-sortdown"></i></button>
+                <button onClick={btnClick}>
+                    {preIcon && <i className={'iconfont ' + preIcon}></i>}
+                    {config.title}
+                    <i className="iconfont icon-sortdown"></i>
+                </button>
                 <ul className={this.state.open ? 'open' : ''}>
-                    {config.items.map((v, i) => {
+                    {config.items.length && config.items.map((v, i) => {
                         return (
                             <li key={i}>
                                 <a href={v.path}>{v.msg}</a>

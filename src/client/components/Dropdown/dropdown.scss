@@ -5,6 +5,7 @@ $dropdown-border-color: #ccc;
 $dropdown-border-radius: .04rem;
 $dropdown-bg-hover: #e6e6e6;
 $dropdown-min-width: 1.2rem;
+$dropdown-padding: .04rem .1rem .04rem .15rem;
 
 $dropdown-menu-padding: .05rem 0;
 $dropdown-menu-bg: #fff;
@@ -15,12 +16,6 @@ $dropdown-menu-color: #333;
 $dropdown-menu-min-width: 1.2rem;
 
 $dropdown-inline-margin: 0 .2rem .2rem 0;
-
-/* as-dropdown */
-$dropdown-padding: .04rem .1rem .04rem .15rem;
-
-/* as-dropdown-fuse */
-$dropdown-fuse-padding: .04rem .2rem .04rem .25rem;
 
 /* 默认白色圆角按钮 */
 .as-dropdown {
@@ -74,12 +69,16 @@ $dropdown-fuse-padding: .04rem .2rem .04rem .25rem;
         border: none;
         background-color: inherit;
         color: inherit;
-        padding: $dropdown-fuse-padding;
+        padding: $dropdown-padding;
         cursor: pointer;
         height: 100%;
         min-width: $dropdown-min-width;
+        
+        i:first-child {
+            padding-right: .06rem;
+        }
 
-        i {
+        i:last-child {
             position: relative;
             top: -0.04rem;
             padding-left: .03rem;

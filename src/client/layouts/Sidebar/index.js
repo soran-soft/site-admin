@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+    require('./sidebar.scss');
+}
+
 import React, { Component } from 'react';
 import NavMenu from './NavMenu';
 

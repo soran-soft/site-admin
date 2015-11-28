@@ -11,11 +11,7 @@ export default class DropdownSelect extends Component {
         tag: PropTypes.string,                    // 出发事件需要返回的对象key值
         config: PropTypes.shape({                 
             title: PropTypes.string.isRequired,   // 按钮当前显示的标题
-            items: PropTypes.arrayOf(             // 子选项
-                PropTypes.shape({
-                    msg: PropTypes.string.isRequired
-                }).isRequired  
-            ).isRequired,   
+            items: PropTypes.array.isRequired     // 子选项 [{msg}]
         }).isRequired,
         handleClick: PropTypes.func.isRequired    // 点击选项触发的事件
     }
@@ -83,7 +79,7 @@ export default class DropdownSelect extends Component {
             <div className={type + asStyle}>
                 <button onClick={btnClick}>{title}<i className="iconfont icon-sortdown"></i></button>
                 <ul className={open ? 'open' : ''}>
-                    {config.items.map((v, i) => {
+                    {config.items.length && config.items.map((v, i) => {
                         return (
                             <li key={i}>
                                 <a href="javascript:;"

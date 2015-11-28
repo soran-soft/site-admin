@@ -1,8 +1,12 @@
+if (process.env.BROWSER) {
+    require('./douban.scss');
+}
+
 import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchMovie } from '../../actions/douban';
+import { fetchMovie, fetchTags } from '../../actions/douban';
 import { DropdownSelect } from '../../components/Dropdown/';
 import { Table } from '../../components/Table/';
 import chart from './kit/chart';
@@ -22,64 +26,112 @@ class DoubanMovies extends Component {
                 sort: 'rank'
             }]
         },
-        chart: { // 图表的图例及图表类型
+        aboutChart: { // 图表的图例及图表类型
             name: '评分',
             type: 'bar'
         }
     }
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            table: {
+                title: ['影片名称', '豆瓣评分'],
+                data: []
+            }
+        }
+    }
+
+    componentWillMount() {
+        this.props.fetchTags();
+    }
+
     componentDidMount() {
-        let { chart: { name, type }, keywords: { tag, sort }, movies } = this.props;
+        let { aboutChart, keywords, fetchMovie } = this.props;
 
-        let chartInfo = {
-            tag, sort, name, type
-        };
+        let renderChart,
+            chartInfo = {
+                ...aboutChart,
+                ...keywords
+            };
 
-        // 渲染图表
-        chart('douban-movies', chartInfo, movies[`${tag}&${sort}`]);
+        fetchMovie(keywords.tag, keywords.sort, function () {
+            renderChart = chart.init('douban-movies');
+        }, function (movie) {
+            chart.output(renderChart, chartInfo, movie);
+            
+            let table = this.state.table;
+            table.data = movie.map(v => { 
+                return { title: v.title, rate: v.rate };
+            });
+            this.setState(Object.assign({}, this.state, { table }));
+        }.bind(this));
     }
 
     dropdownTagsHandle(tag) {
-        let { chart: { name, type }, keywords: { sort }, fetchMovie } = this.props;
+        let { aboutChart, keywords, fetchMovie } = this.props;
 
-        let chartInfo = {
-            tag, sort, name, type
-        };
+        if (keywords.tag !== tag) {
+            let renderChart,
+                chartInfo = {
+                    ...aboutChart,
+                    ...keywords
+                };
 
-        fetchMovie(tag, sort, function (movie) {
-            chart('douban-movies', chartInfo, movie);
-        });
+            fetchMovie(tag, keywords.sort, function () {
+                renderChart = chart.init('douban-movies');
+            }, function (movie) {
+                chart.output(renderChart, chartInfo, movie);
+                
+                let table = this.state.table;
+                table.data = movie.map(v => { 
+                    return { title: v.title, rate: v.rate };
+                });
+                this.setState(Object.assign({}, this.state, { table }));
+            }.bind(this));
+        }
     }
     
     dropdownSortHandle(sort) {
-        let { chart: { name, type }, keywords: { tag }, fetchMovie } = this.props;
+        let { aboutChart, keywords, fetchMovie } = this.props;
 
-        let chartInfo = {
-            tag, sort, name, type
-        };
+        if (keywords.sort !== sort) {
+            let renderChart,
+                chartInfo = {
+                    ...aboutChart,
+                    ...keywords
+                };
 
-        fetchMovie(tag, sort, function (movie) {
-            chart('douban-movies', chartInfo, movie);
-        });
+            fetchMovie(keywords.tag, sort, function () {
+                renderChart = chart.init('douban-movies');
+            }, function (movie) {
+                chart.output(renderChart, chartInfo, movie);
+                
+                let table = this.state.table;
+                table.data = movie.map(v => { 
+                    return { title: v.title, rate: v.rate };
+                });
+                this.setState(Object.assign({}, this.state, { table }));
+            }.bind(this));
+        }
     }
 
     render() {
-        let { sortConfig, tags } = this.props,
+        let { tags, keywords } = this.props,
             tagsConfig = {
-            title: tags[0],
-            items: []
+            title: keywords.tag,
+            items: tags
         };
-
-        tags.forEach(v => tagsConfig.items.push({msg: v}));
-
+        
         return (
             <section>
-                <DropdownSelect asStyle='inline' config={tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
-                <DropdownSelect asStyle='inline' tag='sort' config={sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
+                <DropdownSelect asStyle="inline" config={tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
+                <DropdownSelect asStyle="inline" tag='sort' config={this.props.sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
                 
                 <div id="douban-movies" style={{height: '400px'}}></div>
 
-                <Table />
+                <Table asStyle="df-douban-table" config={this.state.table} />
             </section>
         );
     }
@@ -88,14 +140,14 @@ class DoubanMovies extends Component {
 function mapStateToProps(state) {
     return {
         tags: state.douban.tags,
-        movies: state.douban.movies,
         keywords: state.douban.keywords
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchMovie
+        fetchMovie,
+        fetchTags
     }, dispatch);
 }
 
