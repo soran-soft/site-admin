@@ -29,8 +29,6 @@ class Header extends Component {
     render() {
         return (
             <header className="admin-header">
-                <h1 className="title"><Link to="/">DataCenter</Link></h1>
-               
                 <DropdownLink type="fuse" preIcon="fa-user" asStyle="user-dropdown" config={this.props.config} />
             </header>
         );

@@ -1,4 +1,4 @@
-$sidebar-top: 42px;
+$sidebar-min-width: .4rem;
 $sidebar-width: 2.25rem;
 
 $sidebar-menu-color: #91979e;
@@ -10,41 +10,92 @@ $sidebar-nav-menu-bg-active: #24272d;
 
 $sidebar-sub-menu-bg: #35404d;
 
+$sidebar-title-color: #cdcdcd;
+
 .admin-sidebar {
     position: fixed;
-    top: $sidebar-top;
+    top: 0;
     left: 0;
     width: $sidebar-width;
     height: 100%;
     background-color: $sidebar-nav-menu-bg;
     z-index: 999;
+    -webkit-transition: left .3s ease-out;
+    -moz-transition: left .3s ease-out;
+    -ms-transition: left .3s ease-out;
+    -o-transition: left .3s ease-out;
+    transition: left .3s ease-out;
+
+    &.hide {
+        // width: $sidebar-min-width;
+        left: $sidebar-min-width - $sidebar-width;
+        
+        .nav-menu > li {
+            height: $sidebar-min-width;
+
+            i.last {
+                display: none;
+            }
+        }
+    }
+
+    .title {
+        font-size: .18rem;
+        line-height: $sidebar-min-width;
+        padding-left: $sidebar-min-width;
+        overflow: hidden;
+
+        a {
+            color: $sidebar-title-color;
+        }
+
+        i {
+            width: $sidebar-min-width;
+            line-height: $sidebar-min-width;
+            text-align: center;
+            color: $sidebar-title-color;
+            font-size: .2rem;
+            cursor: pointer;
+            float: right;
+
+            &:hover {
+                background-color: $sidebar-nav-menu-bg-active;
+            }
+        }
+    }
 
     li a {
         display: block;
         color: $sidebar-menu-color;
         line-height: $sidebar-menu-line-height;
-        padding-left: .1rem;
+        padding-left: $sidebar-min-width;
 
         &:hover {
             text-decoration: none;
         }
 
         i {
-            padding-right: .1rem;
             font-size: .16rem;
-            width: .2rem;
+            width: $sidebar-min-width;
             line-height: inherit;
+            text-align: center;
 
-            &:last-child {
+            &:first-child {
+                position: fixed;
+                left: 0;
+                z-index: 1000;
+            }
+
+            &.last {
                 float: right;
             }
         }
     }
 
     .nav-menu {
-        overflow: hidden;
-        
         > li {
+            overflow: hidden;
+            
             &:hover > a,
             &.active > a {
                 background-color: $sidebar-nav-menu-bg-active;
@@ -60,7 +111,6 @@ $sidebar-sub-menu-bg: #35404d;
         }
 
         ul {
-            text-indent: .3rem;
             background-color: $sidebar-sub-menu-bg;
         }
     }

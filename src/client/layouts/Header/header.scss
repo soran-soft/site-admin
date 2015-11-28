@@ -1,7 +1,6 @@
-$header-height: .42rem;
+$header-height: .4rem;
 $header-bg: #333c47;
-$header-title-color: #cdcdcd;
-$header-padding-lr: .36rem;
+$header-bg-active: #24272d;
 
 .admin-header {
     background-color: $header-bg;
@@ -9,26 +8,15 @@ $header-padding-lr: .36rem;
     width: 100%;
     position: fixed;
     top: 0;
-    z-index: 999;
-
-    .title {
-        display: inline-block;
-        font-size: .18rem;
-        line-height: $header-height;
-        padding: 0 $header-padding-lr;
-
-        a {
-            color: $header-title-color;
-        }
-    }
+    z-index: 998;
 
     .user-dropdown {
         float: right;
-        margin-right: $header-padding-lr;
+        margin-right: .4rem;
         color: #ccc;
 
         &:hover {
-            background-color: #24272d;
+            background-color: $header-bg-active;
         }
     }
 }

@@ -4,7 +4,7 @@ $main-min-width: 8rem;
 /* content */
 $content-bg: #fff;
 $content-min-height: 6rem;
-$content-margin: .42rem 0 0 2.25rem;
+$content-margin: .4rem 0 0 2.25rem;
 
 .admin-main {
     position: relative;
@@ -17,4 +17,9 @@ $content-margin: .42rem 0 0 2.25rem;
     min-height: $content-min-height;
     padding: .1rem .2rem;
     color: #333;
+    -webkit-transition: margin-left .3s ease-out;
+    -moz-transition: margin-left .3s ease-out;
+    -ms-transition: margin-left .3s ease-out;
+    -o-transition: margin-left .3s ease-out;
+    transition: margin-left .3s ease-out;
 }

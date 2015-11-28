@@ -12,6 +12,10 @@ export default class Sidebar extends Component {
         config: require('./config')
     }
 
+    state = {
+        hide: false
+    }
+
     handleDashboard(path, msg, key) {
         let { changePath, changeNavKey } = this.props;
 
@@ -27,11 +31,28 @@ export default class Sidebar extends Component {
         this.props.changePath(path, msg);
     }
 
+    handleHide() {
+        let dContent = document.getElementById('admin-content'),
+            hide = this.state.hide;
+
+        this.setState({
+            hide: !hide
+        });
+
+        dContent.style.marginLeft = (!hide ? '.4rem' : '2.25rem');
+    }
+
     render() {
         let { msg, path, navKey, config } = this.props;
+        let hide = this.state.hide;
 
         return (
-            <aside className="admin-sidebar">
+            <aside className={'admin-sidebar ' + (hide ? 'hide' : '')}>
+                <h1 className="title">
+                    <Link to="/">DataCenter</Link>
+                    <i className={'fa fa-' + (hide ? 'indent' : 'outdent')} onClick={this.handleHide.bind(this)}></i>
+                </h1>
+
                 <ul className="nav-menu">
                     <li className={(navKey === 999) ? 'active' : ''}>
                         <Link to="/" 

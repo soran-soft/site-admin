@@ -129,7 +129,7 @@ class DoubanMovies extends Component {
                 <DropdownSelect asStyle="inline" config={tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
                 <DropdownSelect asStyle="inline" tag='sort' config={this.props.sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
                 
-                <div id="douban-movies" style={{height: '400px'}}></div>
+                <div id="douban-movies" style={{height: '400px', width: '100%'}}></div>
 
                 <Table asStyle="df-douban-table" config={this.state.table} />
             </section>

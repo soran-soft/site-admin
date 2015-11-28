@@ -19,7 +19,7 @@ class App extends Component {
             <div className="admin-main">
                 <Header />
                 <Sidebar {...main} changePath={changePath} changeNavKey={changeNavKey} />
-                <section className="admin-content">
+                <section id="admin-content" className="admin-content">
                     <ContentHeader msg={main.msg} />
 
                     {this.props.children || ''}
