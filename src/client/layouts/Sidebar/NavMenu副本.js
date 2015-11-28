@@ -14,8 +14,8 @@ class NavMenu extends Component {
         let { currentPath, navKey, changePath, changeNavKey, config } = this.props;
 
         return (
-            <ul className="nav-menu">
-                {config.map((menu, i) => {
+            <ul className="nav-menu">{this.props.children || ''}
+                {/*config.map((menu, i) => {
                     let flag = (navKey === i);
 
                     return (
@@ -26,23 +26,23 @@ class NavMenu extends Component {
                                         changeNavKey(i);
                                         changePath(menu.path, menu.msg);
                                     }}>
-                                    <i className={'iconfont ' + menu.icon}></i>
+                                    <i className={'fa ' + menu.icon}></i>
                                     {menu.msg}
                                 </Link>
                             }
                             
                             {!menu.path && 
                                 <a href="javascript:;" onClick={() => changeNavKey(i)}>
-                                    <i className={'iconfont ' + menu.icon}></i>
+                                    <i className={'fa ' + menu.icon}></i>
                                     {menu.msg}
-                                    <i className={'iconfont icon-angle' + (flag ? 'down' : 'left')}></i>
+                                    <i className={'fa fa-angle-' + (flag ? 'down' : 'left')}></i>
                                 </a>
                             }
 
                             {menu.items && <SubMenu navIndex={i} items={menu.items} />}
                         </li>
                     );
-                })}
+                })*/}
             </ul>
         );
     }

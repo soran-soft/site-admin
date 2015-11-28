@@ -14,7 +14,7 @@ export class Table extends Component {
     }
 
     render() {
-        let { config: { title, data }, asStyle } = this.props;
+        let { config, asStyle } = this.props;
 
         if (!asStyle) {
             asStyle = '';
@@ -24,11 +24,11 @@ export class Table extends Component {
             <table className={'as-table ' + asStyle}>
                 <thead>
                     <tr>
-                        {title.map((v, i) => <th key={i}>{v}</th>)}
+                        {config.title.length > 0 && config.title.map((v, i) => <th key={i}>{v}</th>)}
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((v, i) => {
+                    {config.data.length > 0 && config.data.map((v, i) => {
                         return (
                             <tr key={i}>
                                 <td>{v.title}</td>

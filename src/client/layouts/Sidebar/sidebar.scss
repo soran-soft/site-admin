@@ -1,11 +1,14 @@
 $sidebar-top: 42px;
 $sidebar-width: 2.25rem;
-$sidebar-nav-menu-bg: #2a3542;
-$sidebar-nav-menu-bg-active: #24272d;
-$sidebar-sub-menu-bg: #35404d;
+
 $sidebar-menu-color: #91979e;
 $sidebar-menu-color-active: #c25e5a;
-$sidebar-nav-menu-line-height: 40px;
+$sidebar-menu-line-height: 40px;
+
+$sidebar-nav-menu-bg: #2a3542;
+$sidebar-nav-menu-bg-active: #24272d;
+
+$sidebar-sub-menu-bg: #35404d;
 
 .admin-sidebar {
     position: fixed;
@@ -19,7 +22,7 @@ $sidebar-nav-menu-line-height: 40px;
     li a {
         display: block;
         color: $sidebar-menu-color;
-        line-height: $sidebar-nav-menu-line-height;
+        line-height: $sidebar-menu-line-height;
         padding-left: .1rem;
 
         &:hover {
@@ -30,10 +33,7 @@ $sidebar-nav-menu-line-height: 40px;
             padding-right: .1rem;
             font-size: .16rem;
             width: .2rem;
-
-            &:first-child {
-                float: left;
-            }
+            line-height: inherit;
 
             &:last-child {
                 float: right;
@@ -48,6 +48,10 @@ $sidebar-nav-menu-line-height: 40px;
             &:hover > a,
             &.active > a {
                 background-color: $sidebar-nav-menu-bg-active;
+
+                i:first-child {
+                    color: $sidebar-menu-color-active;
+                }
             }
 
             /* &.active .sub-menu {

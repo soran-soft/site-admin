@@ -65,7 +65,7 @@ class DoubanMovies extends Component {
             table.data = movie.map(v => { 
                 return { title: v.title, rate: v.rate };
             });
-            this.setState(Object.assign({}, this.state, { table }));
+            this.setState({ table });
         }.bind(this));
     }
 
@@ -88,7 +88,7 @@ class DoubanMovies extends Component {
                 table.data = movie.map(v => { 
                     return { title: v.title, rate: v.rate };
                 });
-                this.setState(Object.assign({}, this.state, { table }));
+                this.setState({ table });
             }.bind(this));
         }
     }
@@ -112,7 +112,7 @@ class DoubanMovies extends Component {
                 table.data = movie.map(v => { 
                     return { title: v.title, rate: v.rate };
                 });
-                this.setState(Object.assign({}, this.state, { table }));
+                this.setState({ table });
             }.bind(this));
         }
     }
@@ -123,7 +123,7 @@ class DoubanMovies extends Component {
             title: keywords.tag,
             items: tags
         };
-        
+
         return (
             <section>
                 <DropdownSelect asStyle="inline" config={tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />

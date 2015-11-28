@@ -77,9 +77,9 @@ export default class DropdownSelect extends Component {
 
         return (
             <div className={type + asStyle}>
-                <button onClick={btnClick}>{title}<i className="iconfont icon-sortdown"></i></button>
+                <button onClick={btnClick}>{title}<i className="fa fa-caret-down"></i></button>
                 <ul className={open ? 'open' : ''}>
-                    {config.items.length && config.items.map((v, i) => {
+                    {config.items.length > 0 && config.items.map((v, i) => {
                         return (
                             <li key={i}>
                                 <a href="javascript:;"

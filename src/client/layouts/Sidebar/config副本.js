@@ -1,7 +1,13 @@
 export default 
 [{
+    msg: 'Dashboard',
+    icon: 'fa-tachometer',
+    path: '/',
+    navKey: 0
+}, {
     msg: 'Demo',
     icon: 'fa-database',
+    navKey: 1,
     items: [
         {
             msg: 'line',
@@ -19,6 +25,7 @@ export default
 }, {
     msg: '豆瓣',
     icon: 'fa-bar-chart',
+    navKey: 2,
     items: [
         {
             msg: '电影',

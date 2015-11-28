@@ -24,7 +24,7 @@ module.exports = {
       {test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer?{browsers:["last 2 version", "> 1%"]}')},
       {test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!autoprefixer?{browsers:["last 2 version", "> 1%"]}!sass')},
       {test: /\.(jpg|png|gif)$/, loader: 'file?name=images/[name].[ext]'},
-      {test: /\.(svg|ttf|eot|woff2?)$/, loader: 'file?name=fonts/[name].[ext]'}
+      {test: /\.(svg|ttf|eot|woff2?)($|\?[a-zA-Z]=\d[\.\d]+$)/, loader: 'file?name=fonts/[name].[ext]'}
     ]
   },
   plugins: [

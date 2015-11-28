@@ -55,12 +55,12 @@ export default class DropdownLink extends Component {
         return (
             <div className={type + asStyle}>
                 <button onClick={btnClick}>
-                    {preIcon && <i className={'iconfont ' + preIcon}></i>}
+                    {preIcon && <i className={'fa ' + preIcon}></i>}
                     {config.title}
-                    <i className="iconfont icon-sortdown"></i>
+                    <i className="fa fa-caret-down"></i>
                 </button>
                 <ul className={this.state.open ? 'open' : ''}>
-                    {config.items.length && config.items.map((v, i) => {
+                    {config.items.length > 0 && config.items.map((v, i) => {
                         return (
                             <li key={i}>
                                 <a href={v.path}>{v.msg}</a>

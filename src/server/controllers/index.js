@@ -27,18 +27,6 @@ export default {
         } else if (!renderProps) {
             yield this.render('404');
         } else {
-            // if (renderProps.components.indexOf(NotFound) != -1) {
-            //     _this.status = 404
-            // }
-
-            // const initialState = yield fetch('http://127.0.0.1:3000/api/initialState')
-            //     .then(function(response) {
-            //         if (response.status >= 400) {
-            //             throw new Error("Bad response from server");
-            //         }
-            //         return response.json();
-            //     });
-
             let pathname = location.pathname,
                 initialState = {
                     main: {},
@@ -46,61 +34,34 @@ export default {
                 };
 
             // 查找client下的sidebar配置项，以获得initialState
-            let isFound = sidebarConfig.some(function (parent) {
-                if (!parent.path) {
+            if (pathname !== '/') {
+                let isFound = sidebarConfig.some(function (parent, i) {
                     return parent.items.some(function (child) {
                         if (child.path === pathname) {
                             initialState.main = child;
-                            initialState.main.navKey = parent.navKey;
+                            initialState.main.navKey = i;
 
                             return true;
                         }
 
                         return false;
                     });
-                } else if (parent.path === pathname) {
+                });
+
+                if (!isFound) {
                     initialState.main = {
-                        msg: parent.msg,
-                        path: parent.path,
-                        navKey: parent.navKey
+                        msg: 'NotFound',
+                        path: pathname,
+                        navKey: -1
                     };
-
-                    return true;
                 }
-
-                return false;
-            });
-
-            if (!isFound) {
+            } else {
                 initialState.main = {
-                    msg: 'NotFound',
-                    path: pathname,
-                    navKey: -1
+                    msg: 'Dashboard',
+                    path: '/',
+                    navKey: 999
                 };
             }
-
-            let doubanTags = yield fetch('http://movie.douban.com/j/search_tags?type=movie')
-                .then(function (response) {
-                    if (response.status >= 400) {
-                        throw new Error("Bad response from server");
-                    }
-                    return response.json();
-                });
-
-            // tag: 热门, sort: recommend
-            /*let doubanMovies = yield fetch('http://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0')
-                .then(function (response) {
-                    if (response.status >= 400) {
-                        throw new Error("Bad response from server");
-                    }
-                    return response.json();
-                });
-
-            
-            initialState.douban.tags = doubanTags.tags;
-            initialState.douban.movies = {
-                '热门&recommend': doubanMovies.subjects
-            };*/
 
             initialState.douban.tags = [];
             initialState.douban.movies = {};
