@@ -1,6 +1,7 @@
-import { FETCH_NEW_MOVIE, CHANGE_KEYWORDS, SAVE_TAGS } from '../constants/ActionTypes';
+import { FETCH_NEW_MOVIE, CHANGE_KEYWORDS, SAVE_TAGS, FETCH_SHOPS } from '../constants/ActionTypes';
 import fetch from 'isomorphic-fetch';
 
+/* movies */
 function fetchMovieAction(key, subjects) {
     return { 
         type: FETCH_NEW_MOVIE,
@@ -36,9 +37,11 @@ export function fetchMovie(tag, sort, beforeFetchCallback, callback) {
                     return response.json();
                 })
                 .then(function (json) {
-                    dispatch(fetchMovieAction(`${tag}&${sort}`, json.subjects));
+                    let key = `${tag}&${sort}`;
 
-                    callback && callback(getState().douban.movies[`${tag}&${sort}`]);
+                    dispatch(fetchMovieAction(key, json.subjects));
+
+                    callback && callback(json.subjects);
                 });
         } else {
             callback && callback(movies[`${tag}&${sort}`]);
@@ -72,5 +75,34 @@ export function fetchTags() {
                     dispatch(saveTagsAction(tags));
                 });
         }
+    };
+}
+
+/* shops */
+function fetchShopAction(shops) {
+    return {
+        type: FETCH_SHOPS,
+        shops
+    };
+}
+
+export function fetchShop(page, page_size, beforeFetchCallback, callback) {
+    return (dispatch, getState) => {
+        beforeFetchCallback && beforeFetchCallback();
+
+        fetch(`/api/douban/shops?page=${page}&page_size=${page_size}`)
+            .then(function (response) {
+                if (response.status >= 400) {
+                    throw new Error("Bad response from server");
+                }
+                return response.json();
+            })
+            .then(function (json) {
+                let shops = json.data.shops;
+
+                dispatch(fetchShopAction(shops));
+
+                callback && callback(shops);
+            });
     };
 }

@@ -25,12 +25,8 @@ export default
             path: '/douban/movies'
         }, 
         {
-            msg: '音乐',
-            path: '/douban/musics'
-        }, 
-        {
-            msg: '小说',
-            path: '/douban/books'
+            msg: '商城',
+            path: '/douban/shops'
         }
     ]
 }]

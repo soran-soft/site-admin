@@ -36,3 +36,26 @@
         background-color: #e6e6e6;
     }
 }
+
+/* grid */
+$grid-number: 12;
+$grid-cols: '.as-col-1';
+
+@for $i from 1 through $grid-number {
+    $value: ($i / $grid-number) * 100%;
+    
+    @if $i > 1 {
+        $grid-cols: $grid-cols + ',.as-col-' + $i;
+    }
+
+    .as-col-#{$i} {
+        width: $value;
+    }
+    .as-col-offset-#{$i} {
+        margin-left: $value;
+    }
+}
+
+#{$grid-cols} {
+    float: left;
+}

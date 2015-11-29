@@ -63,13 +63,6 @@ export default {
                 };
             }
 
-            initialState.douban.tags = [];
-            initialState.douban.movies = {};
-            initialState.douban.keywords = {
-                tag: '热门',
-                sort: 'recommend'
-            };
-
             // console.log(initialState);
 
             const store = configureStore(initialState);

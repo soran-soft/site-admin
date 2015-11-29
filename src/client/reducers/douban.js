@@ -1,4 +1,4 @@
-import { FETCH_NEW_MOVIE, CHANGE_KEYWORDS, SAVE_TAGS } from '../constants/ActionTypes';
+import { FETCH_NEW_MOVIE, CHANGE_KEYWORDS, SAVE_TAGS, FETCH_SHOPS } from '../constants/ActionTypes';
 import { combineReducers } from 'redux';
 
 function keywords(state = {
@@ -36,8 +36,18 @@ function movies(state = {}, action) {
     }
 }
 
+function shops(state = {}, action) {
+    switch (action.type) {
+        case FETCH_SHOPS:
+            return action.shops;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     tags,
+    keywords,
     movies,
-    keywords
+    shops
 });

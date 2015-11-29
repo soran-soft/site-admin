@@ -17,6 +17,10 @@ export default {
             url = `http://movie.douban.com/j/search_subjects?type=movie&${query}&page_limit=20&page_start=0`;
         } else if (type === 'tags') {
             url = 'http://movie.douban.com/j/search_tags?type=movie';
+        } else if (type === 'shops') {
+            let query = this.req._parsedUrl.query; // tag, sort
+
+            url = 'https://market.douban.com/api/home/shops?category=index&' + query; // page=1&page_size=20
         }
 
         this.body = yield fetch(url)

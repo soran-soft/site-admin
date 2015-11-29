@@ -1,7 +1,3 @@
-if (process.env.BROWSER) {
-    require('./dropdown.scss');
-}
-
 import React, { Component, PropTypes } from 'react';
 
 export default class DropdownSelect extends Component {

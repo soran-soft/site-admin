@@ -8,9 +8,9 @@ export class Table extends Component {
     static propTypes = {
         asStyle: PropTypes.string,
         config: PropTypes.shape({
-            title: PropTypes.array.isRequired,
-            data: PropTypes.array.isRequired   // [{}]
-        }).isRequired
+            title: PropTypes.array,
+            data: PropTypes.array   // [{}]
+        })
     }
 
     render() {
@@ -20,19 +20,32 @@ export class Table extends Component {
             asStyle = '';
         }
 
+        if (!config) {
+            config = {
+                title: [],
+                data: []
+            };
+        } else {
+            if (!config.title) {
+                config.title = [];
+            }
+            if (!config.data) {
+                config.data = [];
+            }
+        }
+
         return (
             <table className={'as-table ' + asStyle}>
                 <thead>
                     <tr>
-                        {config.title.length > 0 && config.title.map((v, i) => <th key={i}>{v}</th>)}
+                        {config.title.map((v, i) => <th key={i}>{v}</th>)}
                     </tr>
                 </thead>
                 <tbody>
-                    {config.data.length > 0 && config.data.map((v, i) => {
+                    {config.data.map((v, i) => {
                         return (
                             <tr key={i}>
-                                <td>{v.title}</td>
-                                <td>{v.rate}</td>
+                                {Object.keys(v).map((key, j) => <td key={j}>{v[key]}</td>)}
                             </tr>
                         );
                     })}

@@ -1,7 +1,8 @@
-import DropdownLink from './Link';
-import DropdownSelect from './Select';
+if (process.env.BROWSER) {
+    require('./dropdown.scss');
+}
 
 export default {
-    DropdownLink,
-    DropdownSelect
+    DropdownLink: require('./Link'),
+    DropdownSelect: require('./Select')
 }

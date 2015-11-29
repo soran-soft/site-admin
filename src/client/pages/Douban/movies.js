@@ -1,17 +1,12 @@
-if (process.env.BROWSER) {
-    require('./douban.scss');
-}
-
-import fetch from 'isomorphic-fetch';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchMovie, fetchTags } from '../../actions/douban';
 import { DropdownSelect } from '../../components/Dropdown/';
 import { Table } from '../../components/Table/';
-import chart from './kit/chart';
+import moviesChart from './kit/moviesChart';
 
-class DoubanMovies extends Component {
+class Movies extends Component {
     static defaultProps = {
         sortConfig: { // 排序按钮的配置
             title: '按热度排序',
@@ -57,9 +52,9 @@ class DoubanMovies extends Component {
             };
 
         fetchMovie(keywords.tag, keywords.sort, function () {
-            renderChart = chart.init('douban-movies');
+            renderChart = moviesChart.init('douban-movies');
         }, function (movie) {
-            chart.output(renderChart, chartInfo, movie);
+            moviesChart.output(renderChart, chartInfo, movie);
             
             let table = this.state.table;
             table.data = movie.map(v => { 
@@ -76,13 +71,14 @@ class DoubanMovies extends Component {
             let renderChart,
                 chartInfo = {
                     ...aboutChart,
-                    ...keywords
+                    tag,
+                    sort: keywords.sort
                 };
 
             fetchMovie(tag, keywords.sort, function () {
-                renderChart = chart.init('douban-movies');
+                renderChart = moviesChart.init('douban-movies');
             }, function (movie) {
-                chart.output(renderChart, chartInfo, movie);
+                moviesChart.output(renderChart, chartInfo, movie);
                 
                 let table = this.state.table;
                 table.data = movie.map(v => { 
@@ -100,13 +96,14 @@ class DoubanMovies extends Component {
             let renderChart,
                 chartInfo = {
                     ...aboutChart,
-                    ...keywords
+                    tag: keywords.tag,
+                    sort
                 };
 
             fetchMovie(keywords.tag, sort, function () {
-                renderChart = chart.init('douban-movies');
+                renderChart = moviesChart.init('douban-movies');
             }, function (movie) {
-                chart.output(renderChart, chartInfo, movie);
+                moviesChart.output(renderChart, chartInfo, movie);
                 
                 let table = this.state.table;
                 table.data = movie.map(v => { 
@@ -129,7 +126,7 @@ class DoubanMovies extends Component {
                 <DropdownSelect asStyle="inline" config={tagsConfig} handleClick={this.dropdownTagsHandle.bind(this)} />
                 <DropdownSelect asStyle="inline" tag='sort' config={this.props.sortConfig} handleClick={this.dropdownSortHandle.bind(this)} />
                 
-                <div id="douban-movies" style={{height: '400px', width: '100%'}}></div>
+                <div id="douban-movies" style={{height: '400px'}}></div>
 
                 <Table asStyle="df-douban-table" config={this.state.table} />
             </section>
@@ -151,4 +148,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DoubanMovies);
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);
