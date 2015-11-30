@@ -3,7 +3,13 @@ $table-td-border-color: #ddd;
 $table-tr-zebra-color: #eee;
 
 .as-table {
-    // text-align: left;
+    font-size: .14rem;
+
+    caption {
+        font-size: .16rem;
+        font-weight: bold;
+        padding: .05rem 0;
+    }
 
     thead > tr {
         font-weight: bold;

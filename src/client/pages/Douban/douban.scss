@@ -1,5 +1,25 @@
+/* common */
 .df-douban-table {
     width: 88%;
     margin: .2rem 6%;
     text-align: center;
+}
+
+/* shops */
+.df-douban-shops-form {
+    button[type="submit"] {
+        height: .35rem;
+        border: none;
+        margin-left: .3rem;
+        background-color: #33CCFF;
+        color: #fff;
+    }
+}
+
+.df-douban-shops-input {
+    float: left;
+
+    &:not(:first-child) {
+        padding-left: .2rem;
+    }
 }
