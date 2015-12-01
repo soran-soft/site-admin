@@ -14,56 +14,26 @@ class Shops extends Component {
     }
 
     state = {
-        doms: [],
+        values: ['1', '5'],
         tables: []
     }
 
     componentDidMount() {
-        let { aboutChart, shops, fetchShop } = this.props;
-        let page = 1,
-            page_size = 5;
-
-        let asEcharts,
-            chartInfo = {
-                ...aboutChart,
-                page,
-                page_size
-            };
-
-        fetchShop(page, page_size, function () {
-            asEcharts = shopsChart.init('douban-shops');
-        }, function (shops) {
-            shopsChart.output(asEcharts, chartInfo, shops);
-            
-            let { doms, tables } = this.state;
-
-            tables = shops.map(shop => {
-                return {
-                    caption: shop.name,
-                    title: ['商品名称', '优惠价', '市场价'],
-                    data: shop.skus.map(v => {
-                        return { 
-                            title: v.title, 
-                            promote_price: v.promote_price,
-                            market_price: v.market_price
-                        }
-                    })
-                }
-            });
-
-            doms.push(document.getElementById('shops-input-1'), document.getElementById('shops-input-2'));
-
-            this.setState({ doms, tables });
-        }.bind(this));
+        this.renderChart();
     }
 
     formSubmit(e) {
         e.preventDefault();
 
+        this.renderChart();
+    }
+
+    renderChart() {
         let { aboutChart, shops, fetchShop } = this.props;
-        let doms = this.state.doms,
-            page = doms[0].value,
-            page_size = doms[1].value;
+        let values = this.state.values,
+            page = values[0],
+            page_size = values[1];
+
         let asEcharts,
             chartInfo = {
                 ...aboutChart,
@@ -92,16 +62,37 @@ class Shops extends Component {
                 }
             });
 
-            this.setState({ doms, tables });
+            this.setState({ values, tables });
         }.bind(this));
     }
 
+    handleChangeOne(e) {
+        let state = this.state;
+        state.values[0] = e.target.value;
+
+        this.setState(state);
+    }
+
+    handleChangeTwo(e) {
+        let state = this.state;
+        state.values[1] = e.target.value;console.log(typeof e.target.value)
+
+        this.setState(state);
+    }
+
     render() {
+        let { values } = this.state;
         return (
             <section>
                 <form action="" className="df-douban-shops-form" onSubmit={this.formSubmit.bind(this)}>
-                    <FormText inputId="shops-input-1" title="page" placeholder="page" inline="auto" asStyle="df-douban-shops-input" />
-                    <FormText inputId="shops-input-2" title="page_size" placeholder="page_size" inline="auto" asStyle="df-douban-shops-input" />
+                    <FormText inputId="shops-input-1" title="当前页" 
+                        placeholder={values[0]} 
+                        inline="auto" asStyle="df-douban-shops-input"
+                        handleChange={this.handleChangeOne.bind(this)} />
+                    <FormText inputId="shops-input-2" title="每页显示数量" 
+                        placeholder={values[1]} 
+                        inline="auto" asStyle="df-douban-shops-input"
+                        handleChange={this.handleChangeTwo.bind(this)} />
                     <button type="submit" className="button">渲染图表</button>
                 </form>
 

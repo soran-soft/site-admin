@@ -8,11 +8,12 @@ export default class InputText extends Component {
         inline: PropTypes.string,
         title: PropTypes.string,
         type: PropTypes.string,
-        inputId: PropTypes.string.isRequired
+        inputId: PropTypes.string.isRequired,
+        handleChange: PropTypes.func.isRequired
     }
 
     render() {
-        let { asStyle, name, placeholder, inline, title, type, inputId } = this.props;
+        let { asStyle, name, placeholder, inline, title, type, inputId, handleChange } = this.props;
         let labelClass = '',
             textClass = 'form-text';
 
@@ -45,8 +46,8 @@ export default class InputText extends Component {
             <div className={'as-form-group ' + asStyle}>
                 {title && <label htmlFor={inputId} className={labelClass}>{title}</label>}
 
-                {type === 'input' && <input type="text" id={inputId} name={name} className={textClass} placeholder={placeholder} />}
-                {type === 'textarea' && <textarea id={inputId} name={name} className={textClass} placeholder={placeholder} cols="30" rows="10"></textarea>}
+                {type === 'input' && <input type="text" id={inputId} name={name} className={textClass} placeholder={placeholder} onChange={handleChange} />}
+                {type === 'textarea' && <textarea id={inputId} name={name} className={textClass} placeholder={placeholder} rows="10" onChange={handleChange}></textarea>}
             </div>
         );
     }
