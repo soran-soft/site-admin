@@ -1,5 +1,5 @@
 {
-  "name": "react-koa-isomorphic",
+  "name": "site-admin",
   "version": "1.0.1",
   "description": "Isomorphic port of the redux app",
   "main": "index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ansenhuang/react-koa-isomorphic.git"
+    "url": "https://github.com/ansenhuang/site-admin.git"
   },
   "keywords": [
     "koa",
@@ -23,7 +23,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ansenhuang/react-koa-isomorphic/issues"
+    "url": "https://github.com/ansenhuang/site-admin/issues"
   },
   "dependencies": {
     "babel-runtime": "^5.6.15",
