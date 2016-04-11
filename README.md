@@ -6,8 +6,8 @@ Installing
 ==========
 
 ```bash
-git clone git@github.com:ansenhuang/react-koa-isomorphic.git
-cd react-koa-isomorphic && npm install
+git clone git@github.com:ansenhuang/site-admin.git
+cd site-admin && npm install
 ```
 
 
